@@ -4,7 +4,7 @@ export const Form = styled.form`
   padding: 2rem;
   width: 100%;
   height: 100vh;
-  background-color: ${({ theme }) => theme.colors.primary200};
+  background-color: ${({ theme }) => theme.primary200};
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -21,11 +21,11 @@ export const Form = styled.form`
 
 export const Heading = styled.h2`
   font-weight: ${({ secondary }) => (secondary ? '400' : '700')};
-  margin-bottom: ${({ secondary }) => (secondary ? '2rem' : '0rem')};
+  margin: 1rem 0 4rem 0;
 `
 
 export const Input = styled.input`
-  color: ${({ theme }) => theme.colors.darkText};
+  color: ${({ theme }) => theme.darkText};
   margin: 0.7rem 0;
   padding: 1rem;
   width: 100%;
@@ -40,7 +40,7 @@ export const ForgotPassword = styled.span`
   margin-bottom: 1.5rem;
   font-size: ${({ theme }) => theme.size.xs};
   a {
-    color: ${({ theme }) => theme.colors.lightText};
+    color: ${({ theme }) => theme.white};
     text-decoration: none;
   }
 `
@@ -52,18 +52,18 @@ export const SubmitBtn = styled.button`
   height: 5rem;
   width: 80%;
   text-align: center;
-  border-radius: ${({ theme }) => theme.utils.smallRadius};
+  border-radius: ${({ theme }) => theme.utils.bigRadius};
   outline: none;
   border: none;
-  background-color: ${({ theme }) => theme.colors.accent};
-  color: ${({ theme }) => theme.colors.lightText};
+  background-color: ${({ theme }) => theme.primary500};
+  color: ${({ theme }) => theme.white};
   font-size: ${({ theme }) => theme.size.s};
   transition: all 0.2s linear;
 `
 
 export const ErrorMessage = styled.span`
   font-size: ${({ theme }) => theme.size.xs};
-  color: ${({ theme }) => theme.colors.warning};
+  color: ${({ theme }) => theme.warning};
   text-align: center;
   padding: 1rem 0;
 `
@@ -73,7 +73,7 @@ export const LinkTo = styled.span`
   justify-content: center;
   font-size: ${({ theme }) => theme.size.xs};
   a {
-    color: ${({ theme }) => theme.colors.lightText};
+    color: ${({ theme }) => theme.white};
     text-decoration: none;
     font-weight: 500;
   }

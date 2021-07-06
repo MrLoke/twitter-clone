@@ -2,6 +2,10 @@ import { useState } from 'react'
 import { Link, useHistory } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import LoadingSpinner from 'components/LoadingSpinner/LoadingSpinner'
+import { logIn, logInFailure } from 'redux/actions/authActions'
+import { useDispatch, useSelector } from 'react-redux'
+import { auth, db } from 'firebase-config'
+import { AiOutlineTwitter } from 'react-icons/ai'
 import {
   Form,
   Heading,
@@ -14,27 +18,38 @@ import {
 
 const LoginForm = () => {
   const [loading, setLoading] = useState(false)
-  const [error, setError] = useState('')
+  // const [error, setError] = useState('')
   const { register, handleSubmit } = useForm()
+  const authError = useSelector((state) => state.user.authError)
+  const dispatch = useDispatch()
   const history = useHistory()
 
   const onSubmit = async (value) => {
-    // try {
-    //   setError('')
-    //   setLoading(true)
-    //   await login(value.email, value.password)
-    //   history.push('/')
-    // } catch (err) {
-    //   setLoading(false)
-    //   setError(err.message)
-    // }
+    const { email, password } = value
+
+    auth
+      .signInWithEmailAndPassword(email, password)
+      .then((userAuth) => {
+        db.collection('users')
+          .doc(userAuth.user.uid)
+          .onSnapshot((snapshot) => {
+            dispatch(
+              logIn({
+                ...snapshot.data(),
+              })
+            )
+          })
+        history.push('/')
+      })
+      .catch((error) => {
+        dispatch(logInFailure(error.message))
+      })
   }
 
   return (
     <Form autoComplete='off' onSubmit={handleSubmit(onSubmit)}>
-      <Heading>Movie App</Heading>
-      <br />
-      <Heading secondary>Login</Heading>
+      <AiOutlineTwitter size='60px' color='rgb(29, 161, 242)' />
+      <Heading>Login to Twitter</Heading>
       <Input
         type='email'
         id='email'
@@ -50,13 +65,13 @@ const LoginForm = () => {
         {...register('password')}
       />
 
-      <SubmitBtn type='submit' disabled={loading}>
+      <SubmitBtn type='submit'>
         {loading ? <LoadingSpinner smallSpinner /> : <p>Log in</p>}
       </SubmitBtn>
       <ForgotPassword>
         <Link to='/#'>Forgot password</Link>
       </ForgotPassword>
-      {error ? <ErrorMessage>{error}</ErrorMessage> : null}
+      {authError ? <ErrorMessage>{authError}</ErrorMessage> : null}
       <LinkTo>
         Dont have account?&nbsp;<Link to='/signup'>Sign up</Link>
       </LinkTo>

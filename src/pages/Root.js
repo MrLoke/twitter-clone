@@ -3,22 +3,35 @@ import { ThemeProvider } from 'styled-components'
 import Routes from 'routes/Routes'
 import { appTheme } from 'theme/theme'
 import { GlobalStyles } from 'theme/GlobalStyles'
-// import theme from 'styled-theming'
-import { darkTheme, lightTheme } from 'theme/theme'
-import { useSelector } from 'react-redux'
-
-// export const backgroundColor = theme('mode', {
-//   light: 'rgba(255, 255, 255)',
-//   dark: 'rgba(5, 5, 5)',
-// })
-
-// export const textColor = theme('mode', {
-//   light: 'rgba(5, 5, 5)',
-//   dark: 'rgba(255, 255, 255)',
-// })
+import { useDispatch, useSelector } from 'react-redux'
+import { useEffect } from 'react'
+import { auth, db } from 'firebase-config'
+import { logIn, signOut } from 'redux/actions/authActions'
 
 const Root = () => {
   const theme = useSelector((state) => state.theme.theme)
+  const isLogged = useSelector((state) => state.user.isLogged)
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    if (isLogged) {
+      auth.onAuthStateChanged((userAuth) => {
+        if (userAuth) {
+          db.collection('users')
+            .doc(userAuth.uid)
+            .onSnapshot((snapshot) => {
+              dispatch(
+                logIn({
+                  ...snapshot.data(),
+                })
+              )
+            })
+        } else {
+          dispatch(signOut())
+        }
+      })
+    }
+  }, [dispatch])
 
   return (
     <>
@@ -29,7 +42,7 @@ const Root = () => {
           rel='stylesheet'
         />
       </Helmet>
-      <ThemeProvider theme={theme}>
+      <ThemeProvider theme={{ ...theme, ...appTheme }}>
         <GlobalStyles />
         <Routes />
       </ThemeProvider>

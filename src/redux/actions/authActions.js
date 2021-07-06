@@ -1,11 +1,25 @@
-import { authActionTypes } from 'redux/actionTypes/authActionTypes'
+import { authTypes } from 'redux/actionTypes/authTypes'
 
-export const signInSuccess = (user) => ({
-  type: authActionTypes.SIGN_IN_SUCCESS,
+export const logIn = (user) => ({
+  type: authTypes.LOGIN_SUCCESS,
   payload: user,
 })
 
-export const signInFailure = (error) => ({
-  type: authActionTypes.SIGN_IN_FAILURE,
+export const logInFailure = (error) => ({
+  type: authTypes.LOGIN_ERROR,
   payload: error,
+})
+
+export const signUp = (user) => ({
+  type: authTypes.SIGNUP_SUCCESS,
+  payload: user,
+})
+
+export const signUpFailure = (error) => ({
+  type: authTypes.SIGNUP_ERROR,
+  payload: error,
+})
+
+export const signOut = () => ({
+  type: authTypes.SIGNOUT_SUCCESS,
 })

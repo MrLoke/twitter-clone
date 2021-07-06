@@ -1,40 +1,49 @@
-import { authActionTypes } from 'redux/actionTypes/authActionTypes'
+import { authTypes } from 'redux/actionTypes/authTypes'
 
-const initialState = {
-  currentUser: null,
-  error: null,
-  loading: false,
+const initState = {
+  userInfo: null,
+  isLogged: false,
+  authError: null,
 }
 
-const authReducer = (state = initialState, action) => {
+const authReducer = (state = initState, action) => {
   switch (action.type) {
-    case authActionTypes.SIGN_UP_START:
+    case authTypes.LOGIN_SUCCESS:
       return {
         ...state,
-        loading: true,
+        userInfo: action.payload,
+        isLogged: true,
+        authError: null,
       }
-    case authActionTypes.SIGN_IN_SUCCESS:
+
+    case authTypes.LOGIN_ERROR:
       return {
         ...state,
-        currentUser: action.payload,
-        loading: false,
-        error: null,
+        authError: action.payload,
       }
-    case authActionTypes.SIGN_OUT_SUCCESS:
+
+    case authTypes.SIGNOUT_SUCCESS:
       return {
         ...state,
-        currentUser: null,
-        loading: false,
-        error: null,
+        userInfo: null,
+        isLogged: false,
+        authError: null,
       }
-    case authActionTypes.SIGN_IN_FAILURE:
-    case authActionTypes.SIGN_UP_FAILURE:
-    case authActionTypes.SIGN_OUT_FAILURE:
+
+    case authTypes.SIGNUP_SUCCESS:
+      return {
+        // ...state,
+        userInfo: action.payload,
+        isLogged: true,
+        authError: null,
+      }
+
+    case authTypes.SIGNUP_ERROR:
       return {
         ...state,
-        error: action.payload,
-        loading: false,
+        authError: action.payload,
       }
+
     default:
       return state
   }

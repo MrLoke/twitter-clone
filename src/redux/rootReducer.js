@@ -7,7 +7,7 @@ import themeReducer from 'redux/reducers/themeReducer'
 const persistConfig = {
   key: 'root',
   storage,
-  // whitelist: ['search'],
+  // blacklist: ['search'],
 }
 
 const rootReducer = combineReducers({

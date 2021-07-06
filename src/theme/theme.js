@@ -9,8 +9,8 @@ export const lightTheme = {
   primaryText: 'rgba(10, 10, 10)',
   secondaryText: 'rgba(20, 20, 20)',
   white: 'rgba(255, 255, 255)',
-  green: 'rgba(22, 199, 132)',
-  red: 'rgba(234, 57, 67)',
+  success: 'rgba(22, 199, 132)',
+  warning: 'rgba(234, 57, 67)',
 }
 
 export const darkTheme = {
@@ -24,8 +24,8 @@ export const darkTheme = {
   primaryText: 'rgba(250, 250, 250)',
   secondaryText: 'rgba(170, 184, 194)',
   white: 'rgba(255, 255, 255)',
-  green: 'rgba(22, 199, 132)',
-  red: 'rgba(234, 57, 67)',
+  success: 'rgba(22, 199, 132)',
+  warning: 'rgba(234, 57, 67)',
 }
 
 export const appTheme = {

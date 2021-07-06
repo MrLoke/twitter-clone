@@ -4,7 +4,7 @@ export const Form = styled.form`
   padding: 2rem;
   width: 100%;
   height: 100vh;
-  background-color: ${({ theme }) => theme.colors.primary200};
+  background-color: ${({ theme }) => theme.primary200};
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -15,17 +15,17 @@ export const Form = styled.form`
   ${({ theme }) => theme.media.sm} {
     border-radius: ${({ theme }) => theme.smallRadius};
     width: 400px;
-    max-height: 60vh;
+    max-height: 70vh;
   }
 `
 
 export const Heading = styled.h2`
   font-weight: ${({ secondary }) => (secondary ? '400' : '700')};
-  margin-bottom: ${({ secondary }) => (secondary ? '2rem' : '0rem')};
+  margin: 1rem 0 4rem 0;
 `
 
 export const Input = styled.input`
-  color: ${({ theme }) => theme.colors.darkText};
+  color: ${({ theme }) => theme.darkText};
   margin: 0.7rem 0;
   padding: 1rem;
   width: 100%;
@@ -41,11 +41,11 @@ export const SubmitBtn = styled.button`
   cursor: pointer;
   padding: 1rem 0;
   width: 80%;
-  border-radius: ${({ theme }) => theme.utils.smallRadius};
+  border-radius: ${({ theme }) => theme.utils.bigRadius};
   outline: none;
   border: none;
-  background-color: ${({ theme }) => theme.colors.accent};
-  color: ${({ theme }) => theme.colors.lightText};
+  background-color: ${({ theme }) => theme.primary500};
+  color: ${({ theme }) => theme.white};
   font-size: ${({ theme }) => theme.size.s};
   transition: all 0.2s linear;
 `
@@ -62,7 +62,7 @@ export const LinkTo = styled.span`
   justify-content: center;
   font-size: ${({ theme }) => theme.size.xs};
   a {
-    color: ${({ theme }) => theme.colors.lightText};
+    color: ${({ theme }) => theme.white};
     text-decoration: none;
     font-weight: 500;
   }
