@@ -8,6 +8,7 @@ export const lightTheme = {
   lightGray: 'rgba(170, 184, 194)',
   primaryText: 'rgba(10, 10, 10)',
   secondaryText: 'rgba(20, 20, 20)',
+  borderColor: 'rgba(47, 51, 54)',
   white: 'rgba(255, 255, 255)',
   success: 'rgba(22, 199, 132)',
   warning: 'rgba(234, 57, 67)',
@@ -15,7 +16,7 @@ export const lightTheme = {
 
 export const darkTheme = {
   primaryBg: 'rgba(5, 5, 5)',
-  secondaryBg: 'rgba(5, 5, 5)',
+  secondaryBg: 'rgba(21, 24, 28)',
   primary200: 'rgb(142, 208, 248)',
   primary500: 'rgb(29, 161, 242)',
   primary700: 'rgb(26, 145, 218)',
@@ -23,6 +24,7 @@ export const darkTheme = {
   lightGray: 'rgba(170, 184, 194)',
   primaryText: 'rgba(250, 250, 250)',
   secondaryText: 'rgba(170, 184, 194)',
+  borderColor: 'rgba(47, 51, 54)',
   white: 'rgba(255, 255, 255)',
   success: 'rgba(22, 199, 132)',
   warning: 'rgba(234, 57, 67)',
@@ -33,7 +35,7 @@ export const appTheme = {
     xxs: '1.2rem',
     xs: '1.5rem',
     s: '1.7rem',
-    m: '2.3rem',
+    m: '2.1rem',
     l: '3.5rem',
     xl: '4.5rem',
   },
