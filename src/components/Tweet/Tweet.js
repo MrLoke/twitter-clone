@@ -48,7 +48,7 @@ const Tweet = ({ tweet, onLikePress, onDislikePress }) => {
             &nbsp;&nbsp;
             <UserName>@{tweet.user.userName}</UserName>
           </div>
-          <ShowMoreTweet>
+          <ShowMoreTweet data-tip='More'>
             <CgMoreAlt size='2.5rem' />
           </ShowMoreTweet>
         </UserInitials>
@@ -84,6 +84,12 @@ const Tweet = ({ tweet, onLikePress, onDislikePress }) => {
         </TweetActions>
       </TweetFeed>
 
+      <ReactTooltip
+        place='bottom'
+        type='dark'
+        effect='solid'
+        backgroundColor='rgba(101, 119, 134)'
+      />
       <ReactTooltip
         place='bottom'
         type='dark'

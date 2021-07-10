@@ -31,7 +31,7 @@ export const UserInitials = styled.div`
 export const DisplayName = styled.p`
   color: ${({ theme }) => theme.primaryText};
   font-weight: 500;
-  width: 160px;
+  width: 130px;
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
@@ -40,7 +40,7 @@ export const DisplayName = styled.p`
 export const UserName = styled.p`
   color: ${({ theme }) => theme.darkGray};
   font-weight: 500;
-  width: 160px;
+  width: 130px;
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;

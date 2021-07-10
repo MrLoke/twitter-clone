@@ -4,6 +4,7 @@ import Sidebar from 'components/Sidebar/Sidebar'
 import AddTweet from 'components/AddTweet/AddTweet'
 import Tweet from 'components/Tweet/Tweet'
 import FollowsRecommends from 'components/FollowsRecommends/FollowsRecommends'
+import MobileNav from 'components/MobileNav/MobileNav'
 import LoadingSpinner from 'components/LoadingSpinner/LoadingSpinner'
 import { Container, MainFeed } from './FeedPageStyled'
 import { db, storage } from 'firebase-config'
@@ -136,6 +137,7 @@ const FeedPage = () => {
         )}
       </MainFeed>
       <FollowsRecommends />
+      <MobileNav />
     </Container>
   )
 }

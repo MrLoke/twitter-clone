@@ -3,7 +3,7 @@ import { AiOutlineTwitter } from 'react-icons/ai'
 import { BiHomeCircle } from 'react-icons/bi'
 import { BiHash } from 'react-icons/bi'
 import { IoNotificationsOutline } from 'react-icons/io5'
-import { TiMessages } from 'react-icons/ti'
+import { BiEnvelope } from 'react-icons/bi'
 import { BsBookmarks } from 'react-icons/bs'
 import { RiFileListLine } from 'react-icons/ri'
 import { CgProfile } from 'react-icons/cg'
@@ -39,7 +39,7 @@ const Sidebar = () => {
             <ItemName>Notifications</ItemName>
           </Item>
           <Item>
-            <TiMessages size='3rem' />
+            <BiEnvelope size='3rem' />
             <ItemName>Messages</ItemName>
           </Item>
           <Item>

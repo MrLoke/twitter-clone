@@ -18,6 +18,7 @@ export const FormContainer = styled.div`
 
 export const Textarea = styled.textarea`
   width: 85%;
+  margin-right: 1rem;
   padding: 1rem 0;
   font-family: 'Roboto', sans-serif;
   background-color: ${({ theme }) => theme.primaryBg};
@@ -46,6 +47,7 @@ export const TweetMultimedia = styled.div`
 
 export const ActionTweet = styled.span`
   margin-right: 1rem;
+  cursor: pointer;
 `
 
 export const FileInput = styled.input`

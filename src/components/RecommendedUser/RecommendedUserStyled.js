@@ -29,10 +29,6 @@ export const UserInitials = styled.div`
   flex-direction: column;
   padding-left: 1.5rem;
   padding-right: 3rem;
-  display: none;
-  ${({ theme }) => theme.media.lg} {
-    display: flex;
-  }
 `
 
 export const DisplayName = styled.p`

@@ -48,18 +48,42 @@ export const ShowMoreTweet = styled.span`
 
 export const DisplayName = styled.p`
   color: ${({ theme }) => theme.primaryText};
+  font-size: ${({ theme }) => theme.size.xs};
+  max-width: 120px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  ${({ theme }) => theme.media.sm} {
+    font-size: ${({ theme }) => theme.size.s};
+    max-width: 140px;
+  }
+  ${({ theme }) => theme.media.md} {
+    max-width: 200px;
+  }
 `
 
 export const UserName = styled.p`
   color: ${({ theme }) => theme.darkGray};
-  width: 160px;
+  font-size: ${({ theme }) => theme.size.xs};
+  max-width: 120px;
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
+  ${({ theme }) => theme.media.sm} {
+    font-size: ${({ theme }) => theme.size.s};
+    max-width: 140px;
+  }
+  ${({ theme }) => theme.media.md} {
+    max-width: 160px;
+  }
 `
 
 export const TweetMessage = styled.p`
   margin: 0rem 0 1rem 0;
+  font-size: ${({ theme }) => theme.size.xs};
+  ${({ theme }) => theme.media.sm} {
+    font-size: ${({ theme }) => theme.size.s};
+  }
 `
 
 export const TweetActions = styled.div`
