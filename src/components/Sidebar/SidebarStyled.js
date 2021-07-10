@@ -2,13 +2,9 @@ import styled from 'styled-components/macro'
 
 export const Container = styled.div`
   height: 100vh;
-  /* flex: 0.2; */
   display: flex;
   justify-content: center;
-  /* max-width: 300px; */
-  /* width: 20%; */
-  /* flex-grow: 1; */
-  border-right: 1px solid rgb(47, 51, 54);
+  border-right: 1px solid ${({ theme }) => theme.borderColor};
   position: sticky;
   top: 0;
   display: none;
@@ -23,7 +19,6 @@ export const NavContainer = styled.div`
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  /* width: 250px; */
 `
 
 export const List = styled.ul`

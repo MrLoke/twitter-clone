@@ -10,7 +10,7 @@ export const Container = styled.div`
   transition: all 0.2s linear;
   cursor: pointer;
   &:hover {
-    background-color: rgb(28, 31, 35);
+    background-color: ${({ theme }) => theme.tertiaryBg};
   }
 `
 
@@ -36,12 +36,20 @@ export const UserInitials = styled.div`
 `
 
 export const DisplayName = styled.p`
-  color: ${({ theme }) => theme.white};
+  color: ${({ theme }) => theme.primaryText};
   margin-bottom: 0.3rem;
+  width: 130px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
 `
 
 export const UserName = styled.p`
   color: ${({ theme }) => theme.darkGray};
+  width: 130px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
 `
 
 export const FollowBtn = styled.button`

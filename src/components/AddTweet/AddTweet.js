@@ -26,8 +26,6 @@ const AddTweet = ({ text, setText, sendTweet, onFileChange }) => {
         <FormContainer>
           <UserAvatar src={user.photoURL} alt={`${user.displayName} avatar`} />
           <Textarea
-            name=''
-            id=''
             cols='20'
             rows='5'
             value={text}

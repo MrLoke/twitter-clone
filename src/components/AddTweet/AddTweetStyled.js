@@ -2,7 +2,8 @@ import styled from 'styled-components/macro'
 
 export const Container = styled.div`
   padding: 2rem 0 1rem 0;
-  border: 1px solid ${({ theme }) => theme.borderColor};
+  border-bottom: 1px solid ${({ theme }) => theme.borderColor};
+  margin-bottom: 3rem;
 `
 
 export const Form = styled.form`
@@ -17,6 +18,7 @@ export const FormContainer = styled.div`
 
 export const Textarea = styled.textarea`
   width: 85%;
+  padding: 1rem 0;
   font-family: 'Roboto', sans-serif;
   background-color: ${({ theme }) => theme.primaryBg};
   color: ${({ theme }) => theme.primaryText};

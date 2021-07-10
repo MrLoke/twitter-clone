@@ -1,9 +1,5 @@
 import { useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { useHistory } from 'react-router-dom'
-import { signOut } from 'redux/actions/authActions'
-import { applyTheme } from 'redux/actions/themeActions'
-import { darkTheme, lightTheme } from 'theme/theme'
+import { useSelector } from 'react-redux'
 import Sidebar from 'components/Sidebar/Sidebar'
 import AddTweet from 'components/AddTweet/AddTweet'
 import Tweet from 'components/Tweet/Tweet'
@@ -18,18 +14,20 @@ const FeedPage = () => {
   const [tweets, setTweets] = useState([])
   const [file, setFile] = useState(null)
   const user = useSelector((state) => state.user.userInfo)
-  const dispatch = useDispatch()
-  const history = useHistory()
 
   useEffect(() => {
-    db.collection('feed').onSnapshot((snapshot) =>
-      setTweets(
-        snapshot.docs.map((doc) => ({
-          id: doc.id,
-          ...doc.data(),
-        }))
+    const unsubscribe = db
+      .collection('feed')
+      .orderBy('timestamp', 'desc')
+      .onSnapshot((snapshot) =>
+        setTweets(
+          snapshot.docs.map((doc) => ({
+            id: doc.id,
+            ...doc.data(),
+          }))
+        )
       )
-    )
+    return () => unsubscribe()
   }, [])
 
   const onFileChange = (e) => {
@@ -113,10 +111,6 @@ const FeedPage = () => {
       })
   }
 
-  const changeTheme = (theme) => {
-    dispatch(applyTheme(theme))
-  }
-
   return (
     <Container>
       <Sidebar />
@@ -140,17 +134,6 @@ const FeedPage = () => {
         ) : (
           <LoadingSpinner />
         )}
-        <div>
-          <button
-            onClick={() => {
-              dispatch(signOut())
-              history.push('/login')
-            }}>
-            Logout
-          </button>
-          <button onClick={() => changeTheme(darkTheme)}>Dark</button>
-          <button onClick={() => changeTheme(lightTheme)}>Light</button>
-        </div>
       </MainFeed>
       <FollowsRecommends />
     </Container>

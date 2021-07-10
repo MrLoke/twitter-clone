@@ -11,11 +11,7 @@ export const Container = styled.div`
 export const MainFeed = styled.div`
   width: 100%;
   max-width: 600px;
-  border-right: 1px solid rgb(47, 51, 54);
-  ${({ theme }) => theme.media.md} {
-    border-right: 1px solid rgb(47, 51, 54);
-  }
-  ${({ theme }) => theme.media.md} {
-    border-right: 1px solid rgb(47, 51, 54);
+  ${({ theme }) => theme.media.sm} {
+    border-right: 1px solid ${({ theme }) => theme.borderColor};
   }
 `
