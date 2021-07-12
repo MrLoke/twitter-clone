@@ -17,11 +17,17 @@ import {
   TweetBtn,
 } from './AddTweetStyled'
 
-const AddTweet = ({ text, setText, sendTweet, onFileChange }) => {
+const AddTweet = ({
+  text,
+  setText,
+  sendTweet,
+  onFileChange,
+  secondaryStyles,
+}) => {
   const user = useSelector((state) => state.user.userInfo)
 
   return (
-    <Container>
+    <Container secondaryStyles={secondaryStyles}>
       <Form onSubmit={sendTweet}>
         <FormContainer>
           <UserAvatar src={user.photoURL} alt={`${user.displayName} avatar`} />

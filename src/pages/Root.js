@@ -1,12 +1,25 @@
+import { useEffect } from 'react'
 import { Helmet } from 'react-helmet'
-import { ThemeProvider } from 'styled-components'
+import styled, { ThemeProvider } from 'styled-components'
+import { ModalProvider } from 'styled-react-modal'
 import Routes from 'routes/Routes'
 import { appTheme } from 'theme/theme'
 import { GlobalStyles } from 'theme/GlobalStyles'
 import { useDispatch, useSelector } from 'react-redux'
-import { useEffect } from 'react'
 import { auth, db } from 'firebase-config'
 import { logIn, signOut } from 'redux/actions/authActions'
+
+const SpecialModalBackground = styled.div`
+  display: flex;
+  justify-content: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 30;
+  background-color: rgba(255, 255, 255, 0.3);
+`
 
 const Root = () => {
   const theme = useSelector((state) => state.theme.theme)
@@ -44,8 +57,10 @@ const Root = () => {
         />
       </Helmet>
       <ThemeProvider theme={{ ...theme, ...appTheme }}>
-        <GlobalStyles />
-        <Routes />
+        <ModalProvider backgroundComponent={SpecialModalBackground}>
+          <GlobalStyles />
+          <Routes />
+        </ModalProvider>
       </ThemeProvider>
     </>
   )

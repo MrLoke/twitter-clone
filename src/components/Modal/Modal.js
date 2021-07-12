@@ -1,6 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux'
 import { hideModal } from 'redux/actions/modalActions'
-import { StyledModal } from './ModalStyled'
+import { IoCloseOutline } from 'react-icons/io5'
+import { StyledModal, Container, CloseModalBtn } from './ModalStyled'
 
 const Modal = ({ children }) => {
   const modalIsOpen = useSelector((state) => state.modal.modalIsOpen)
@@ -11,7 +12,16 @@ const Modal = ({ children }) => {
       isOpen={modalIsOpen}
       onBackgroundClick={() => dispatch(hideModal())}
       onEscapeKeydown={() => dispatch(hideModal())}>
-      {children}
+      <Container>
+        <CloseModalBtn>
+          <IoCloseOutline
+            onClick={() => dispatch(hideModal())}
+            size='3rem'
+            style={{ cursor: 'pointer' }}
+          />
+        </CloseModalBtn>
+        {children}
+      </Container>
     </StyledModal>
   )
 }
