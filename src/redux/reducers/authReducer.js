@@ -32,7 +32,7 @@ const authReducer = (state = initState, action) => {
 
     case authTypes.SIGNUP_SUCCESS:
       return {
-        // ...state,
+        ...state,
         userInfo: action.payload,
         isLogged: true,
         authError: null,
