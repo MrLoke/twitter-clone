@@ -18,15 +18,13 @@ import {
 
 const LoginForm = () => {
   const [loading, setLoading] = useState(false)
-  // const [error, setError] = useState('')
+  const [error, setError] = useState('')
   const { register, handleSubmit } = useForm()
-  const authError = useSelector((state) => state.user.authError)
   const dispatch = useDispatch()
   const history = useHistory()
 
   const onSubmit = async (value) => {
     const { email, password } = value
-
     auth
       .signInWithEmailAndPassword(email, password)
       .then((userAuth) => {
@@ -42,8 +40,10 @@ const LoginForm = () => {
         history.push('/')
       })
       .catch((error) => {
-        dispatch(logInFailure(error.message))
+        setLoading(false)
+        setError(error.message)
       })
+    setLoading(true)
   }
 
   return (
@@ -71,7 +71,7 @@ const LoginForm = () => {
       <ForgotPassword>
         <Link to='/#'>Forgot password</Link>
       </ForgotPassword>
-      {authError ? <ErrorMessage>{authError}</ErrorMessage> : null}
+      {error ? <ErrorMessage>{error}</ErrorMessage> : null}
       <LinkTo>
         Dont have account?&nbsp;<Link to='/signup'>Sign up</Link>
       </LinkTo>

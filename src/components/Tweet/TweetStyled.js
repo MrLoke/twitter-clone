@@ -2,7 +2,7 @@ import styled from 'styled-components/macro'
 
 export const Container = styled.div`
   display: flex;
-  padding: 1.5rem 0.5rem 1rem 0.5rem;
+  padding: 1.5rem 1rem 1rem 0.5rem;
   border-bottom: 1px solid ${({ theme }) => theme.borderColor};
   transition: all 0.2s linear;
   &:hover {
@@ -16,7 +16,7 @@ export const Container = styled.div`
 export const UserAvatar = styled.img`
   width: 5rem;
   height: 5rem;
-  margin: 0 1rem;
+  margin: 0 1.2rem;
   border-radius: ${({ theme }) => theme.utils.bigRadius};
 `
 
@@ -79,8 +79,9 @@ export const UserName = styled.p`
 `
 
 export const TweetMessage = styled.p`
-  margin: 0rem 0 1rem 0;
+  margin: 0rem 0 0.5rem 0;
   font-size: ${({ theme }) => theme.size.xs};
+  font-weight: 300;
   ${({ theme }) => theme.media.sm} {
     font-size: ${({ theme }) => theme.size.s};
   }
@@ -113,4 +114,6 @@ export const TweetActionBtn = styled.span`
 export const ImageTweet = styled.img`
   max-height: 100%;
   max-width: 100%;
+  margin: 0.5rem 0;
+  border-radius: ${({ theme }) => theme.utils.smallRadius};
 `

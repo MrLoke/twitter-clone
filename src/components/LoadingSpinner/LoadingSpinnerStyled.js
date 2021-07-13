@@ -12,12 +12,12 @@ export const StyledSpinnerContainer = styled.div`
 
 export const StyledSpinner = styled.svg`
   animation: rotate 2s linear infinite;
-  margin: -25px 0 0 -25px;
+  margin: -10px 0 0 0;
   width: 50px;
   height: 50px;
 
   & .path {
-    stroke: ${({ theme }) => theme.primary500};
+    stroke: ${({ theme }) => theme.primary700};
     stroke-linecap: round;
     animation: dash 1s ease-in-out infinite;
   }

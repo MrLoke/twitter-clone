@@ -5,7 +5,7 @@ const LoadingSpinner = ({ fullScreen }) => {
   return (
     <StyledSpinnerContainer fullScreen={fullScreen}>
       {fullScreen ? (
-        <AiOutlineTwitter size='60px' color='rgb(29, 161, 242)' />
+        <AiOutlineTwitter size='8rem' color='rgb(29, 161, 242)' />
       ) : (
         <StyledSpinner viewBox='0 0 50 50'>
           <circle

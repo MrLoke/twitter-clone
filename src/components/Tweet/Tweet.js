@@ -40,7 +40,6 @@ const Tweet = ({ tweet, onLikePress, onDislikePress }) => {
         src={tweet.user.photoURL}
         alt={`${user.displayName} avatar`}
       />
-      {console.log(likes)}
       <TweetFeed>
         <UserInitials>
           <div style={{ display: 'flex' }}>

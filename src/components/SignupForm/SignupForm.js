@@ -4,20 +4,25 @@ import { useForm } from 'react-hook-form'
 import { useDispatch } from 'react-redux'
 import LoadingSpinner from 'components/LoadingSpinner/LoadingSpinner'
 import { AiOutlineTwitter } from 'react-icons/ai'
-import { logInFailure, signUp } from 'redux/actions/authActions'
+import { signUp } from 'redux/actions/authActions'
 import {
   Form,
   Heading,
   Input,
+  FileLabel,
+  InputFile,
   SubmitBtn,
   ErrorMessage,
   LinkTo,
 } from './SignupFormStyled'
 import { auth, db, storage } from 'firebase-config'
 
+const defaultAvatar =
+  'https://thumbs.dreamstime.com/b/domy%C5%9Blny-wektor-ikony-profilu-awatara-zdj%C4%99cie-u%C5%BCytkownika-w-mediach-spo%C5%82eczno%C5%9Bciowych-ikona-fotografii-medi%C3%B3w-183042379.jpg'
+
 const SignupForm = () => {
-  const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
+  const [error, setError] = useState('')
   const [file, setFile] = useState(null)
   const {
     register,
@@ -37,8 +42,9 @@ const SignupForm = () => {
   const onSubmit = async (value) => {
     const { username, displayname, email, password } = value
     const storageRef = storage.ref()
-    const fileRef = storageRef.child(file.name)
-    await fileRef.put(file)
+
+    const fileRef = storageRef.child(file?.name || defaultAvatar)
+    await fileRef.put(file || defaultAvatar)
 
     auth
       .createUserWithEmailAndPassword(email, password)
@@ -50,13 +56,7 @@ const SignupForm = () => {
             userName: username,
             displayName: displayname,
             email: email,
-            photoURL: await fileRef.getDownloadURL(),
-          })
-        userAuth.user
-          .updateProfile({
-            displayName: username,
-            email: email,
-            photoURL: await fileRef.getDownloadURL(),
+            photoURL: file ? await fileRef.getDownloadURL() : defaultAvatar,
           })
           .then(async () => {
             dispatch(
@@ -65,15 +65,17 @@ const SignupForm = () => {
                 userName: username,
                 displayName: displayname,
                 email: email,
-                photoURL: await fileRef.getDownloadURL(),
+                photoURL: file ? await fileRef.getDownloadURL() : defaultAvatar,
               })
             )
           })
         history.push('/')
       })
       .catch((error) => {
-        dispatch(logInFailure(error.message))
+        setLoading(false)
+        setError(error.message)
       })
+    setLoading(true)
   }
 
   return (
@@ -90,7 +92,11 @@ const SignupForm = () => {
             required: 'Username is required',
             minLength: {
               value: 3,
-              message: 'Username is to short 3 characters minimum',
+              message: 'Username is too short 3 characters minimum',
+            },
+            maxLength: {
+              value: 30,
+              message: 'Username is too long',
             },
           })}
         />
@@ -106,7 +112,11 @@ const SignupForm = () => {
             required: 'Display name is required',
             minLength: {
               value: 3,
-              message: 'Display name is to short 3 characters minimum',
+              message: 'Display name is too short 3 characters minimum',
+            },
+            maxLength: {
+              value: 30,
+              message: 'Display name is too long',
             },
           })}
         />
@@ -156,8 +166,8 @@ const SignupForm = () => {
         {errors.password_repeat && (
           <ErrorMessage>{errors.password_repeat.message}</ErrorMessage>
         )}
-        <label htmlFor='profile-avatar'>Set avatar</label>
-        <input type='file' onChange={onFileChange} id='profile-avatar' />
+        <FileLabel htmlFor='profile-avatar'>Set avatar</FileLabel>
+        <InputFile type='file' onChange={onFileChange} id='profile-avatar' />
         <SubmitBtn type='submit'>
           {loading ? <LoadingSpinner smallSpinner /> : <p>Create account</p>}
         </SubmitBtn>

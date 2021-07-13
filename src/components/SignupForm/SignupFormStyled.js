@@ -36,11 +36,19 @@ export const Input = styled.input`
   transition: all 0.2s linear;
 `
 
+export const FileLabel = styled.label`
+  margin-top: 1rem;
+`
+
+export const InputFile = styled.input``
+
 export const SubmitBtn = styled.button`
   margin: 1.5rem 0;
   cursor: pointer;
   padding: 1rem 0;
+  height: 5rem;
   width: 80%;
+  text-align: center;
   border-radius: ${({ theme }) => theme.utils.bigRadius};
   outline: none;
   border: none;

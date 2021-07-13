@@ -1,5 +1,5 @@
 import UserInfo from 'components/UserInfo/UserInfo'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { showModal } from 'redux/actions/modalActions'
 import { AiOutlineTwitter } from 'react-icons/ai'
 import { BiHomeCircle } from 'react-icons/bi'
@@ -21,7 +21,6 @@ import {
 } from './SidebarStyled'
 
 const Sidebar = () => {
-  const modalIsOpen = useSelector((state) => state.modalIsOpen)
   const dispatch = useDispatch()
 
   return (
