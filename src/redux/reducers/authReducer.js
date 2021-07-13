@@ -16,12 +16,6 @@ const authReducer = (state = initState, action) => {
         authError: null,
       }
 
-    case authTypes.LOGIN_ERROR:
-      return {
-        ...state,
-        authError: action.payload,
-      }
-
     case authTypes.SIGNOUT_SUCCESS:
       return {
         ...state,
@@ -36,12 +30,6 @@ const authReducer = (state = initState, action) => {
         userInfo: action.payload,
         isLogged: true,
         authError: null,
-      }
-
-    case authTypes.SIGNUP_ERROR:
-      return {
-        ...state,
-        authError: action.payload,
       }
 
     default:
