@@ -8,6 +8,7 @@ import { GlobalStyles } from 'theme/GlobalStyles'
 import { useDispatch, useSelector } from 'react-redux'
 import { auth, db } from 'firebase-config'
 import { logIn, signOut } from 'redux/actions/authActions'
+import { fetchFeed, fetchUsersData } from 'redux/actions/appActions'
 
 const SpecialModalBackground = styled.div`
   display: flex;
@@ -44,6 +45,9 @@ const Root = () => {
         }
       })
     }
+
+    dispatch(fetchUsersData())
+    dispatch(fetchFeed())
   }, [dispatch])
 
   return (
