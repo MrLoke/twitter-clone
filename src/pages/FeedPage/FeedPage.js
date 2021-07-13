@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { hideModal, showModal } from 'redux/actions/modalActions'
 import Sidebar from 'components/Sidebar/Sidebar'
@@ -14,26 +14,11 @@ import { Container, MainFeed, AddTweetMobileBtn } from './FeedPageStyled'
 
 const FeedPage = () => {
   const [text, setText] = useState('')
-  const [tweets, setTweets] = useState([])
   const [file, setFile] = useState(null)
   const user = useSelector((state) => state.user.userInfo)
+  const feed = useSelector((state) => state.app.feed)
   const modalIsOpen = useSelector((state) => state.modal.modalIsOpen)
   const dispatch = useDispatch()
-
-  useEffect(() => {
-    const unsubscribe = db
-      .collection('feed')
-      .orderBy('timestamp', 'desc')
-      .onSnapshot((snapshot) =>
-        setTweets(
-          snapshot.docs.map((doc) => ({
-            id: doc.id,
-            ...doc.data(),
-          }))
-        )
-      )
-    return () => unsubscribe()
-  }, [])
 
   const onFileChange = (e) => {
     setFile(e.target.files[0])
@@ -128,8 +113,8 @@ const FeedPage = () => {
           sendTweet={sendTweet}
           onFileChange={onFileChange}
         />
-        {tweets.length > 0 ? (
-          tweets.map((tweet) => (
+        {feed.length > 0 ? (
+          feed.map((tweet) => (
             <Tweet
               key={tweet.id}
               tweet={tweet}
