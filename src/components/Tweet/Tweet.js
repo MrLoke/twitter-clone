@@ -25,7 +25,7 @@ import {
 
 const Tweet = ({ tweet }) => {
   const [likes, setLikes] = useState()
-  const user = useSelector((state) => state.user.userInfo)
+  const user = useSelector((state) => state.auth.userInfo)
   const dispatch = useDispatch()
 
   useEffect(() => {

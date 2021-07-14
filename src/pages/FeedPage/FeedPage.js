@@ -15,7 +15,7 @@ import { Container, MainFeed, AddTweetMobileBtn } from './FeedPageStyled'
 const FeedPage = () => {
   const [text, setText] = useState('')
   const [file, setFile] = useState(null)
-  const user = useSelector((state) => state.user.userInfo)
+  const user = useSelector((state) => state.auth.userInfo)
   const feed = useSelector((state) => state.app.feed)
   const modalIsOpen = useSelector((state) => state.modal.modalIsOpen)
   const dispatch = useDispatch()

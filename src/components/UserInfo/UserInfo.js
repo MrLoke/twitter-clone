@@ -20,7 +20,7 @@ import {
 
 const UserInfo = () => {
   const [openMenu, setOpenMenu] = useState(false)
-  const user = useSelector((state) => state.user.userInfo)
+  const user = useSelector((state) => state.auth.userInfo)
   const openMenuRef = useRef()
   const dispatch = useDispatch()
   const history = useHistory()

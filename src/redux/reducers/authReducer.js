@@ -3,7 +3,6 @@ import { authTypes } from 'redux/actionTypes/authTypes'
 const initState = {
   userInfo: null,
   isLogged: false,
-  loading: false,
   loginError: null,
   signupError: null,
 }
@@ -15,7 +14,6 @@ const authReducer = (state = initState, action) => {
         ...state,
         userInfo: action.payload,
         isLogged: true,
-        loading: true,
         loginError: null,
       }
 
@@ -24,7 +22,6 @@ const authReducer = (state = initState, action) => {
         ...state,
         userInfo: null,
         isLogged: false,
-        loading: false,
         loginError: action.payload,
       }
 
@@ -33,7 +30,6 @@ const authReducer = (state = initState, action) => {
         ...state,
         userInfo: null,
         isLogged: false,
-        loading: false,
         signupError: action.payload,
       }
 
@@ -42,7 +38,6 @@ const authReducer = (state = initState, action) => {
         ...state,
         userInfo: action.payload,
         isLogged: true,
-        loading: true,
         signupError: null,
       }
 
@@ -51,7 +46,6 @@ const authReducer = (state = initState, action) => {
         ...state,
         userInfo: null,
         isLogged: false,
-        loading: false,
         loginError: null,
         signupError: null,
       }

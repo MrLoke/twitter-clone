@@ -33,6 +33,7 @@ export const UserAvatar = styled.img`
   width: 5rem;
   height: 5rem;
   margin: 0 1.5rem;
+  object-fit: cover;
   border-radius: ${({ theme }) => theme.utils.bigRadius};
 `
 

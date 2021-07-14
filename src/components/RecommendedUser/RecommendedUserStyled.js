@@ -21,6 +21,7 @@ export const UserContainer = styled.div`
 export const UserAvatar = styled.img`
   width: 5rem;
   height: 5rem;
+  object-fit: cover;
   border-radius: ${({ theme }) => theme.utils.bigRadius};
 `
 

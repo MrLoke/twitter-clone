@@ -3,7 +3,7 @@ import { Link, useHistory } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import LoadingSpinner from 'components/LoadingSpinner/LoadingSpinner'
 import { logIn } from 'redux/actions/authActions'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { AiOutlineTwitter } from 'react-icons/ai'
 import {
   Form,
@@ -17,32 +17,13 @@ import {
 
 const LoginForm = () => {
   const [loading, setLoading] = useState(false)
-  const [error, setError] = useState('')
   const { register, handleSubmit } = useForm()
   const dispatch = useDispatch()
+  const loginError = useSelector((state) => state.auth.loginError)
   const history = useHistory()
 
   const onSubmit = async (value) => {
-    dispatch(logIn(value, () => history.push('/')))
-    // auth
-    //   .signInWithEmailAndPassword(email, password)
-    //   .then((userAuth) => {
-    //     db.collection('users')
-    //       .doc(userAuth.user.uid)
-    //       .onSnapshot((snapshot) => {
-    //         dispatch(
-    //           logIn({
-    //             ...snapshot.data(),
-    //           })
-    //         )
-    //       })
-    //     history.push('/')
-    //   })
-    //   .catch((error) => {
-    //     setLoading(false)
-    //     setError(error.message)
-    //   })
-    // setLoading(true)
+    dispatch(logIn(value, setLoading, () => history.push('/')))
   }
 
   return (
@@ -70,7 +51,7 @@ const LoginForm = () => {
       <ForgotPassword>
         <Link to='/#'>Forgot password</Link>
       </ForgotPassword>
-      {error ? <ErrorMessage>{error}</ErrorMessage> : null}
+      {loginError ? <ErrorMessage>{loginError}</ErrorMessage> : null}
       <LinkTo>
         Dont have account?&nbsp;<Link to='/signup'>Sign up</Link>
       </LinkTo>

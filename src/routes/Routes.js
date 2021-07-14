@@ -15,7 +15,7 @@ const RegisterPage = lazy(() => import('pages/RegisterPage/RegisterPage'))
 const NotFound = lazy(() => import('pages/NotFound/NotFound'))
 
 const Routes = () => {
-  const isLogged = useSelector((state) => state.user.isLogged)
+  const isLogged = useSelector((state) => state.auth.isLogged)
 
   return (
     <Router>

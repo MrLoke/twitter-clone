@@ -13,6 +13,7 @@ export const Container = styled.div`
 export const UserAvatar = styled.img`
   width: 5rem;
   height: 5rem;
+  object-fit: cover;
   border-radius: ${({ theme }) => theme.utils.bigRadius};
   cursor: pointer;
 `

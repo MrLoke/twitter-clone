@@ -24,7 +24,7 @@ const AddTweet = ({
   onFileChange,
   secondaryStyles,
 }) => {
-  const user = useSelector((state) => state.user.userInfo)
+  const user = useSelector((state) => state.auth.userInfo)
 
   return (
     <Container secondaryStyles={secondaryStyles}>

@@ -1,11 +1,10 @@
 import { useState, useRef } from 'react'
 import { useHistory, Link } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import LoadingSpinner from 'components/LoadingSpinner/LoadingSpinner'
 import { AiOutlineTwitter } from 'react-icons/ai'
 import { signUp } from 'redux/actions/authActions'
-import { storage } from 'firebase-config'
 import {
   Form,
   Heading,
@@ -22,7 +21,6 @@ const defaultAvatar =
 
 const SignupForm = () => {
   const [loading, setLoading] = useState(false)
-  const [error, setError] = useState('')
   const [file, setFile] = useState(null)
   const {
     register,
@@ -33,6 +31,7 @@ const SignupForm = () => {
   const password = useRef({})
   password.current = watch('password', '')
   const dispatch = useDispatch()
+  const signupError = useSelector((state) => state.auth.signupError)
   const history = useHistory()
 
   const onFileChange = (e) => {
@@ -40,44 +39,9 @@ const SignupForm = () => {
   }
 
   const onSubmit = async (value) => {
-    const storageRef = storage.ref()
-    const fileRef = storageRef.child(file?.name || defaultAvatar)
-    await fileRef.put(file || defaultAvatar)
-
     dispatch(
-      signUp(value, file, fileRef, defaultAvatar, () => history.push('/'))
+      signUp(value, setLoading, file, defaultAvatar, () => history.push('/'))
     )
-
-    // auth
-    //   .createUserWithEmailAndPassword(email, password)
-    //   .then(async (userAuth) => {
-    //     db.collection('users')
-    //       .doc(userAuth.user.uid)
-    //       .set({
-    //         userId: userAuth.user.uid,
-    //         userName: username,
-    //         displayName: displayname,
-    //         email: email,
-    //         photoURL: file ? await fileRef.getDownloadURL() : defaultAvatar,
-    //       })
-    //       .then(async () => {
-    //         dispatch(
-    //           signUp({
-    //             userId: userAuth.user.uid,
-    //             userName: username,
-    //             displayName: displayname,
-    //             email: email,
-    //             photoURL: file ? await fileRef.getDownloadURL() : defaultAvatar,
-    //           })
-    //         )
-    //       })
-    //     history.push('/')
-    //   })
-    //   .catch((error) => {
-    //     setLoading(false)
-    //     setError(error.message)
-    //   })
-    // setLoading(true)
   }
 
   return (
@@ -173,7 +137,7 @@ const SignupForm = () => {
         <SubmitBtn type='submit'>
           {loading ? <LoadingSpinner smallSpinner /> : <p>Create account</p>}
         </SubmitBtn>
-        {error ? <ErrorMessage>{error}</ErrorMessage> : null}
+        {signupError ? <ErrorMessage>{signupError}</ErrorMessage> : null}
         <LinkTo>
           Already have account?&nbsp;<Link to='/login'>Login</Link>
         </LinkTo>
