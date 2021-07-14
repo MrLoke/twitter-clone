@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { onLikePress, onDislikePress } from 'redux/actions/appActions'
 import { db } from 'firebase-config'
 import { FaRegComment } from 'react-icons/fa'
 import { AiOutlineRetweet } from 'react-icons/ai'
@@ -22,17 +23,21 @@ import {
   ImageTweet,
 } from './TweetStyled'
 
-const Tweet = ({ tweet, onLikePress, onDislikePress }) => {
+const Tweet = ({ tweet }) => {
   const [likes, setLikes] = useState()
   const user = useSelector((state) => state.user.userInfo)
+  const dispatch = useDispatch()
 
   useEffect(() => {
-    db.collection('feed')
+    const unsubscribe = db
+      .collection('feed')
       .doc(tweet.id)
       .collection('likes')
       .doc(user.userId)
       .onSnapshot((snapshot) => setLikes(snapshot.data()))
-  }, [])
+
+    return () => unsubscribe()
+  }, [tweet.id, user.userId])
 
   return (
     <Container>
@@ -66,12 +71,16 @@ const Tweet = ({ tweet, onLikePress, onDislikePress }) => {
           </TweetActionBtn>
 
           {likes?.liked ? (
-            <TweetActionBtn isLike onClick={() => onDislikePress(tweet.id)}>
+            <TweetActionBtn
+              isLike
+              onClick={() => dispatch(onDislikePress(tweet.id, user.userId))}>
               <FcLike size='2rem' />
               {tweet.likesCount}
             </TweetActionBtn>
           ) : (
-            <TweetActionBtn isLike onClick={() => onLikePress(tweet.id)}>
+            <TweetActionBtn
+              isLike
+              onClick={() => dispatch(onLikePress(tweet.id, user.userId))}>
               <AiOutlineHeart size='2rem' />
               {tweet.likesCount}
             </TweetActionBtn>

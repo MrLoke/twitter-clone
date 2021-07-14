@@ -1,5 +1,7 @@
-export const usersTypes = {
+export const appTypes = {
   FETCH_USERS: 'FETCH_USERS',
   FETCH_FEED: 'FETCH_FEED',
+  PRESS_LIKE: 'PRESS_LIKE',
+  PRESS_DISLIKE: 'PRESS_DISLIKE',
   CLEAR_DATA: 'CLEAR_DATA',
 }

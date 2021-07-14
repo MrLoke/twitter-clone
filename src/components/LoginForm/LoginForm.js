@@ -4,7 +4,6 @@ import { useForm } from 'react-hook-form'
 import LoadingSpinner from 'components/LoadingSpinner/LoadingSpinner'
 import { logIn } from 'redux/actions/authActions'
 import { useDispatch } from 'react-redux'
-import { auth, db } from 'firebase-config'
 import { AiOutlineTwitter } from 'react-icons/ai'
 import {
   Form,
@@ -24,26 +23,26 @@ const LoginForm = () => {
   const history = useHistory()
 
   const onSubmit = async (value) => {
-    const { email, password } = value
-    auth
-      .signInWithEmailAndPassword(email, password)
-      .then((userAuth) => {
-        db.collection('users')
-          .doc(userAuth.user.uid)
-          .onSnapshot((snapshot) => {
-            dispatch(
-              logIn({
-                ...snapshot.data(),
-              })
-            )
-          })
-        history.push('/')
-      })
-      .catch((error) => {
-        setLoading(false)
-        setError(error.message)
-      })
-    setLoading(true)
+    dispatch(logIn(value, () => history.push('/')))
+    // auth
+    //   .signInWithEmailAndPassword(email, password)
+    //   .then((userAuth) => {
+    //     db.collection('users')
+    //       .doc(userAuth.user.uid)
+    //       .onSnapshot((snapshot) => {
+    //         dispatch(
+    //           logIn({
+    //             ...snapshot.data(),
+    //           })
+    //         )
+    //       })
+    //     history.push('/')
+    //   })
+    //   .catch((error) => {
+    //     setLoading(false)
+    //     setError(error.message)
+    //   })
+    // setLoading(true)
   }
 
   return (

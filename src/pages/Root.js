@@ -6,9 +6,7 @@ import Routes from 'routes/Routes'
 import { appTheme } from 'theme/theme'
 import { GlobalStyles } from 'theme/GlobalStyles'
 import { useDispatch, useSelector } from 'react-redux'
-import { auth, db } from 'firebase-config'
-import { logIn, signOut } from 'redux/actions/authActions'
-import { fetchFeed, fetchUsersData } from 'redux/actions/appActions'
+import { clearData, fetchFeed, fetchUsersData } from 'redux/actions/appActions'
 
 const SpecialModalBackground = styled.div`
   display: flex;
@@ -24,28 +22,10 @@ const SpecialModalBackground = styled.div`
 
 const Root = () => {
   const theme = useSelector((state) => state.theme.theme)
-  const isLogged = useSelector((state) => state.user.isLogged)
   const dispatch = useDispatch()
 
   useEffect(() => {
-    if (isLogged) {
-      auth.onAuthStateChanged((userAuth) => {
-        if (userAuth) {
-          db.collection('users')
-            .doc(userAuth.uid)
-            .onSnapshot((snapshot) => {
-              dispatch(
-                logIn({
-                  ...snapshot.data(),
-                })
-              )
-            })
-        } else {
-          dispatch(signOut())
-        }
-      })
-    }
-
+    dispatch(clearData())
     dispatch(fetchUsersData())
     dispatch(fetchFeed())
   }, [dispatch])

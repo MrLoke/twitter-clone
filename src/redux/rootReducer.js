@@ -13,7 +13,7 @@ const persistConfig = {
 }
 
 const rootReducer = combineReducers({
-  user: authReducer,
+  auth: authReducer,
   app: usersReducer,
   modal: modalReducer,
   theme: themeReducer,

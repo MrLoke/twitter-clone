@@ -1,4 +1,4 @@
-import { usersTypes } from 'redux/actionTypes/appTypes'
+import { appTypes } from 'redux/actionTypes/appTypes'
 
 const initialState = {
   users: [],
@@ -7,19 +7,25 @@ const initialState = {
 
 export const usersReducer = (state = initialState, action) => {
   switch (action.type) {
-    case usersTypes.FETCH_USERS:
+    case appTypes.FETCH_USERS:
       return {
         ...state,
-        users: [...state.users, action.payload],
+        users: action.payload,
       }
 
-    case usersTypes.FETCH_FEED:
+    case appTypes.FETCH_FEED:
       return {
         ...state,
-        feed: [...state.feed, action.payload],
+        feed: action.payload,
       }
 
-    case usersTypes.CLEAR_DATA:
+    case appTypes.PRESS_LIKE:
+    case appTypes.PRESS_DISLIKE:
+      return {
+        ...state,
+      }
+
+    case appTypes.CLEAR_DATA:
       return initialState
 
     default:

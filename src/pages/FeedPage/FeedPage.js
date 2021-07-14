@@ -61,7 +61,7 @@ const FeedPage = () => {
           message: text,
           user: user,
           likesCount: 0,
-          comments: 0,
+          commentsCount: 0,
           comments: firebase.firestore.FieldValue.arrayUnion({
             user: '',
             comment: '',
@@ -71,36 +71,6 @@ const FeedPage = () => {
     } else return
 
     if (modalIsOpen) dispatch(hideModal())
-  }
-
-  const onLikePress = (docId) => {
-    const userPosts = db.collection('feed').doc(docId)
-
-    userPosts
-      .collection('likes')
-      .doc(user.userId)
-      .set({
-        liked: true,
-      })
-      .then(() => {
-        userPosts.update({
-          likesCount: firebase.firestore.FieldValue.increment(1),
-        })
-      })
-  }
-
-  const onDislikePress = (docId) => {
-    const userPosts = db.collection('feed').doc(docId)
-
-    userPosts
-      .collection('likes')
-      .doc(user.userId)
-      .delete()
-      .then(() => {
-        userPosts.update({
-          likesCount: firebase.firestore.FieldValue.increment(-1),
-        })
-      })
   }
 
   return (
@@ -114,14 +84,7 @@ const FeedPage = () => {
           onFileChange={onFileChange}
         />
         {feed.length > 0 ? (
-          feed.map((tweet) => (
-            <Tweet
-              key={tweet.id}
-              tweet={tweet}
-              onLikePress={onLikePress}
-              onDislikePress={onDislikePress}
-            />
-          ))
+          feed.map((tweet) => <Tweet key={tweet.id} tweet={tweet} />)
         ) : (
           <LoadingSpinner />
         )}

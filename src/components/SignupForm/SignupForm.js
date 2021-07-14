@@ -5,6 +5,7 @@ import { useDispatch } from 'react-redux'
 import LoadingSpinner from 'components/LoadingSpinner/LoadingSpinner'
 import { AiOutlineTwitter } from 'react-icons/ai'
 import { signUp } from 'redux/actions/authActions'
+import { storage } from 'firebase-config'
 import {
   Form,
   Heading,
@@ -15,7 +16,6 @@ import {
   ErrorMessage,
   LinkTo,
 } from './SignupFormStyled'
-import { auth, db, storage } from 'firebase-config'
 
 const defaultAvatar =
   'https://thumbs.dreamstime.com/b/domy%C5%9Blny-wektor-ikony-profilu-awatara-zdj%C4%99cie-u%C5%BCytkownika-w-mediach-spo%C5%82eczno%C5%9Bciowych-ikona-fotografii-medi%C3%B3w-183042379.jpg'
@@ -40,42 +40,44 @@ const SignupForm = () => {
   }
 
   const onSubmit = async (value) => {
-    const { username, displayname, email, password } = value
     const storageRef = storage.ref()
-
     const fileRef = storageRef.child(file?.name || defaultAvatar)
     await fileRef.put(file || defaultAvatar)
 
-    auth
-      .createUserWithEmailAndPassword(email, password)
-      .then(async (userAuth) => {
-        db.collection('users')
-          .doc(userAuth.user.uid)
-          .set({
-            userId: userAuth.user.uid,
-            userName: username,
-            displayName: displayname,
-            email: email,
-            photoURL: file ? await fileRef.getDownloadURL() : defaultAvatar,
-          })
-          .then(async () => {
-            dispatch(
-              signUp({
-                userId: userAuth.user.uid,
-                userName: username,
-                displayName: displayname,
-                email: email,
-                photoURL: file ? await fileRef.getDownloadURL() : defaultAvatar,
-              })
-            )
-          })
-        history.push('/')
-      })
-      .catch((error) => {
-        setLoading(false)
-        setError(error.message)
-      })
-    setLoading(true)
+    dispatch(
+      signUp(value, file, fileRef, defaultAvatar, () => history.push('/'))
+    )
+
+    // auth
+    //   .createUserWithEmailAndPassword(email, password)
+    //   .then(async (userAuth) => {
+    //     db.collection('users')
+    //       .doc(userAuth.user.uid)
+    //       .set({
+    //         userId: userAuth.user.uid,
+    //         userName: username,
+    //         displayName: displayname,
+    //         email: email,
+    //         photoURL: file ? await fileRef.getDownloadURL() : defaultAvatar,
+    //       })
+    //       .then(async () => {
+    //         dispatch(
+    //           signUp({
+    //             userId: userAuth.user.uid,
+    //             userName: username,
+    //             displayName: displayname,
+    //             email: email,
+    //             photoURL: file ? await fileRef.getDownloadURL() : defaultAvatar,
+    //           })
+    //         )
+    //       })
+    //     history.push('/')
+    //   })
+    //   .catch((error) => {
+    //     setLoading(false)
+    //     setError(error.message)
+    //   })
+    // setLoading(true)
   }
 
   return (
