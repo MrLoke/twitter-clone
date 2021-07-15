@@ -6,7 +6,7 @@ export const Container = styled.div`
   justify-content: space-between;
   border-bottom: 1px solid ${({ theme }) => theme.borderColor};
   width: 100%;
-  padding: 1rem 2rem;
+  padding: 1rem 1.5rem;
   transition: all 0.2s linear;
   cursor: pointer;
   &:hover {
@@ -29,7 +29,7 @@ export const UserInitials = styled.div`
   display: flex;
   flex-direction: column;
   padding-left: 1.5rem;
-  padding-right: 3rem;
+  padding-right: 2rem;
 `
 
 export const DisplayName = styled.p`
@@ -57,6 +57,21 @@ export const FollowBtn = styled.button`
   border: 1px solid ${({ theme }) => theme.primary500};
   outline: none;
   background-color: transparent;
+  border-radius: ${({ theme }) => theme.utils.bigRadius};
+  cursor: pointer;
+  &:hover {
+    background-color: rgba(29, 161, 242, 0.1);
+  }
+`
+
+export const UnfollowBtn = styled(FollowBtn)`
+  font-size: ${({ theme }) => theme.size.xs};
+  color: ${({ theme }) => theme.white};
+  font-weight: 600;
+  padding: 1rem 2rem;
+  border: 1px solid ${({ theme }) => theme.primary500};
+  outline: none;
+  background-color: ${({ theme }) => theme.primary500};
   border-radius: ${({ theme }) => theme.utils.bigRadius};
   cursor: pointer;
   &:hover {
