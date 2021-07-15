@@ -66,6 +66,42 @@ export const onDislikePress = (docId, userId) => {
   }
 }
 
+export const onFollow = (docId, userId) => {
+  return (dispatch) => {
+    const userPosts = db.collection('users').doc(docId)
+
+    userPosts
+      .collection('followers')
+      .doc(userId)
+      .set({
+        followed: true,
+      })
+      .then(() => {
+        userPosts.update({
+          followersCount: firebase.firestore.FieldValue.increment(1),
+        })
+      })
+    dispatch({ type: appTypes.FOLLOW })
+  }
+}
+
+export const onUnfollow = (docId, userId) => {
+  return (dispatch) => {
+    const userPosts = db.collection('users').doc(docId)
+
+    userPosts
+      .collection('followers')
+      .doc(userId)
+      .delete()
+      .then(() => {
+        userPosts.update({
+          followersCount: firebase.firestore.FieldValue.increment(-1),
+        })
+      })
+    dispatch({ type: appTypes.UNFOLLOW })
+  }
+}
+
 export const clearData = () => {
   return (dispatch) => {
     dispatch({ type: appTypes.CLEAR_DATA })

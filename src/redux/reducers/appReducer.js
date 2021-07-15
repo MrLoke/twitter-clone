@@ -21,6 +21,8 @@ export const usersReducer = (state = initialState, action) => {
 
     case appTypes.PRESS_LIKE:
     case appTypes.PRESS_DISLIKE:
+    case appTypes.FOLLOW:
+    case appTypes.UNFOLLOW:
       return {
         ...state,
       }
