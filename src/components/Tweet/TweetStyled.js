@@ -11,6 +11,9 @@ export const Container = styled.div`
   &:nth-child(2) {
     border-top: 1px solid ${({ theme }) => theme.borderColor};
   }
+  &:last-child {
+    margin-bottom: 5rem;
+  }
 `
 
 export const UserAvatar = styled.img`
