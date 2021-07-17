@@ -1,6 +1,5 @@
 import { lazy, Suspense } from 'react'
 import LoadingSpinner from 'components/LoadingSpinner/LoadingSpinner'
-import PrivateRoute from 'routes/PrivateRoute'
 import Layout from 'layout/Layout'
 import {
   BrowserRouter as Router,
