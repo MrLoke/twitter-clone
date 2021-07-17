@@ -23,6 +23,10 @@ export const NavContainer = styled.div`
 
 export const List = styled.ul`
   list-style: none;
+  a {
+    text-decoration: none;
+    color: ${({ theme }) => theme.primaryText};
+  }
 `
 
 export const Item = styled.li`

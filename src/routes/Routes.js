@@ -1,6 +1,7 @@
 import { lazy, Suspense } from 'react'
 import LoadingSpinner from 'components/LoadingSpinner/LoadingSpinner'
 import PrivateRoute from 'routes/PrivateRoute'
+import Layout from 'layout/Layout'
 import {
   BrowserRouter as Router,
   Route,
@@ -10,6 +11,9 @@ import {
 import { useSelector } from 'react-redux'
 
 const FeedPage = lazy(() => import('pages/FeedPage/FeedPage'))
+const UserProfilePage = lazy(() =>
+  import('pages/UserProfilePage/UserProfilePage')
+)
 const LoginPage = lazy(() => import('pages/LoginPage/LoginPage'))
 const RegisterPage = lazy(() => import('pages/RegisterPage/RegisterPage'))
 const NotFound = lazy(() => import('pages/NotFound/NotFound'))
@@ -24,7 +28,15 @@ const Routes = () => {
           <Route
             exact
             path='/'
-            render={() => (isLogged ? <FeedPage /> : <Redirect to='/login' />)}
+            render={() =>
+              isLogged ? (
+                <Layout>
+                  <FeedPage />
+                </Layout>
+              ) : (
+                <Redirect to='/login' />
+              )
+            }
           />
           <Route
             exact
@@ -35,6 +47,15 @@ const Routes = () => {
             exact
             path='/signup'
             render={() => (isLogged ? <Redirect to='/' /> : <RegisterPage />)}
+          />
+          <Route
+            exact
+            path='/profile/:name'
+            render={() => (
+              <Layout>
+                <UserProfilePage />
+              </Layout>
+            )}
           />
           <Route exact path='*' component={NotFound} />
         </Switch>

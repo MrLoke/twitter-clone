@@ -1,4 +1,8 @@
-import { useSelector } from 'react-redux'
+import { useState } from 'react'
+import { db, storage } from 'firebase-config'
+import { useDispatch, useSelector } from 'react-redux'
+import { hideModal } from 'redux/actions/modalActions'
+import firebase from 'firebase/app'
 import { FiImage } from 'react-icons/fi'
 import { GrEmoji } from 'react-icons/gr'
 import { AiOutlineFileGif } from 'react-icons/ai'
@@ -17,14 +21,65 @@ import {
   TweetBtn,
 } from './AddTweetStyled'
 
-const AddTweet = ({
-  text,
-  setText,
-  sendTweet,
-  onFileChange,
-  secondaryStyles,
-}) => {
+const AddTweet = ({ secondaryStyles }) => {
+  const [text, setText] = useState('')
+  const [file, setFile] = useState(null)
   const user = useSelector((state) => state.auth.userInfo)
+  const modalIsOpen = useSelector((state) => state.modal.modalIsOpen)
+  const dispatch = useDispatch()
+
+  const onFileChange = (e) => {
+    setFile(e.target.files[0])
+  }
+
+  const sendTweet = async (e) => {
+    e.preventDefault()
+
+    if (file !== null) {
+      const storageRef = storage.ref()
+      const fileRef = storageRef.child(file.name)
+      await fileRef.put(file)
+
+      db.collection('feed')
+        .doc()
+        .set({
+          timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+          message: text,
+          user: user,
+          likesCount: 0,
+          commentsCount: 0,
+          images: firebase.firestore.FieldValue.arrayUnion({
+            name: file.name,
+            url: await fileRef.getDownloadURL(),
+          }),
+          comments: firebase.firestore.FieldValue.arrayUnion({
+            user: '',
+            comment: '',
+          }),
+        })
+      setText('')
+      setFile(null)
+    }
+
+    if (text.length > 0 && file === null) {
+      db.collection('feed')
+        .doc()
+        .set({
+          timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+          message: text,
+          user: user,
+          likesCount: 0,
+          commentsCount: 0,
+          comments: firebase.firestore.FieldValue.arrayUnion({
+            user: '',
+            comment: '',
+          }),
+        })
+      setText('')
+    } else return
+
+    if (modalIsOpen) dispatch(hideModal())
+  }
 
   return (
     <Container secondaryStyles={secondaryStyles}>

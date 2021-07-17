@@ -11,6 +11,7 @@ import {
 } from './FollowsRecommendsStyled'
 
 const FollowsRecommends = () => {
+  const currentUser = useSelector((state) => state.auth.userInfo)
   const users = useSelector((state) => state.app.users)
 
   return (
@@ -20,6 +21,8 @@ const FollowsRecommends = () => {
         {users.length > 0 ? (
           users
             .slice(0, 4)
+            // prevent to display recommend current login user
+            .filter((user) => currentUser.userName !== user.userName)
             .map((user) => <RecommendedUser key={user.id} user={user} />)
         ) : (
           <LoadingSpinner />

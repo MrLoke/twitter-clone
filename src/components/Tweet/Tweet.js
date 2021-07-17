@@ -14,6 +14,7 @@ import {
   TweetFeed,
   UserAvatar,
   UserInitials,
+  UserNames,
   ShowMoreTweet,
   DisplayName,
   UserName,
@@ -22,16 +23,22 @@ import {
   TweetActionBtn,
   ImageTweet,
 } from './TweetStyled'
+import { useHistory } from 'react-router-dom'
 
 const Tweet = ({ tweet }) => {
   const [likes, setLikes] = useState()
   const user = useSelector((state) => state.auth.userInfo)
   const dispatch = useDispatch()
+  const history = useHistory()
+
+  const redirectToUserProfile = () => {
+    history.push(`/profile/${tweet.user.userName}`)
+  }
 
   useEffect(() => {
     const unsubscribe = db
       .collection('feed')
-      .doc(tweet.id)
+      .doc(tweet?.id)
       .collection('likes')
       .doc(user.userId)
       .onSnapshot((snapshot) => setLikes(snapshot.data()))
@@ -44,14 +51,15 @@ const Tweet = ({ tweet }) => {
       <UserAvatar
         src={tweet.user.photoURL}
         alt={`${user.displayName} avatar`}
+        onClick={redirectToUserProfile}
       />
       <TweetFeed>
         <UserInitials>
-          <div style={{ display: 'flex' }}>
+          <UserNames onClick={redirectToUserProfile}>
             <DisplayName>{tweet.user.displayName}</DisplayName>
             &nbsp;&nbsp;
             <UserName>@{tweet.user.userName}</UserName>
-          </div>
+          </UserNames>
           <ShowMoreTweet data-tip='More'>
             <CgMoreAlt size='2.5rem' />
           </ShowMoreTweet>

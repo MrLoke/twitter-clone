@@ -1,7 +1,6 @@
 import { auth, db } from 'firebase-config'
 import { authTypes } from 'redux/actionTypes/authTypes'
 import { storage } from 'firebase-config'
-import firebase from 'firebase/app'
 
 export const logIn = (value, setLoading, callback) => {
   return (dispatch) => {
@@ -46,10 +45,8 @@ export const signUp = (value, setLoading, file, defaultAvatar, callback) => {
             displayName: value.displayname,
             email: value.email,
             createdAt: userAuth.user.metadata.creationTime,
-            followersCount: 0,
-            followers: firebase.firestore.FieldValue.arrayUnion({
-              user: '',
-            }),
+            followingAmount: 0,
+            followersAmount: 0,
             photoURL: file ? await fileRef.getDownloadURL() : defaultAvatar,
           })
           .then(() => {

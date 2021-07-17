@@ -7,11 +7,11 @@ export const NotFoundWrapper = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background-color: ${({ theme }) => theme.colors.bg};
-  color: ${({ theme }) => theme.colors.primaryText};
+  background-color: ${({ theme }) => theme.primaryBg};
+  color: ${({ theme }) => theme.primaryText};
 `
 
 export const StyledLink = styled(Link)`
-  color: ${({ theme }) => theme.colors.primaryText};
+  color: ${({ theme }) => theme.primaryText};
   margin-top: 10px;
 `

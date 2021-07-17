@@ -1,5 +1,6 @@
 import UserInfo from 'components/UserInfo/UserInfo'
-import { useDispatch } from 'react-redux'
+import { Link } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
 import { showModal } from 'redux/actions/modalActions'
 import { AiOutlineTwitter } from 'react-icons/ai'
 import { BiHomeCircle } from 'react-icons/bi'
@@ -21,6 +22,7 @@ import {
 } from './SidebarStyled'
 
 const Sidebar = () => {
+  const currentUser = useSelector((state) => state.auth.userInfo)
   const dispatch = useDispatch()
 
   return (
@@ -30,10 +32,12 @@ const Sidebar = () => {
           <Item>
             <AiOutlineTwitter size='4rem' color='rgb(29, 161, 242)' />
           </Item>
-          <Item>
-            <BiHomeCircle size='3rem' />
-            <ItemName>Home</ItemName>
-          </Item>
+          <Link to='/'>
+            <Item>
+              <BiHomeCircle size='3rem' />
+              <ItemName>Home</ItemName>
+            </Item>
+          </Link>
           <Item>
             <BiHash size='3rem' />
             <ItemName>Explore</ItemName>
@@ -54,10 +58,12 @@ const Sidebar = () => {
             <RiFileListLine size='3rem' />
             <ItemName>Lists</ItemName>
           </Item>
-          <Item>
-            <CgProfile size='3rem' />
-            <ItemName>Profile</ItemName>
-          </Item>
+          <Link to={`/profile/${currentUser.userName}`}>
+            <Item>
+              <CgProfile size='3rem' />
+              <ItemName>Profile</ItemName>
+            </Item>
+          </Link>
           <Item>
             <CgMoreO size='3rem' />
             <ItemName>More</ItemName>

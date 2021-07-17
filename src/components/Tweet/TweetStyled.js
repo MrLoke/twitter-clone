@@ -19,6 +19,7 @@ export const UserAvatar = styled.img`
   margin: 0 1.2rem;
   object-fit: cover;
   border-radius: ${({ theme }) => theme.utils.bigRadius};
+  cursor: pointer;
 `
 
 export const TweetFeed = styled.div`
@@ -31,6 +32,11 @@ export const UserInitials = styled.div`
   display: flex;
   justify-content: space-between;
   width: 100%;
+`
+
+export const UserNames = styled.div`
+  display: flex;
+  cursor: pointer;
 `
 
 export const ShowMoreTweet = styled.span`
@@ -54,6 +60,9 @@ export const DisplayName = styled.p`
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
+  &:hover {
+    text-decoration: underline;
+  }
   ${({ theme }) => theme.media.sm} {
     font-size: ${({ theme }) => theme.size.s};
     max-width: 140px;

@@ -1,4 +1,4 @@
-import { db } from 'firebase-config'
+import { auth, db } from 'firebase-config'
 import { appTypes } from 'redux/actionTypes/appTypes'
 import firebase from 'firebase/app'
 
@@ -66,38 +66,50 @@ export const onDislikePress = (docId, userId) => {
   }
 }
 
-export const onFollow = (docId, userId) => {
+export const onFollow = (userId) => {
   return (dispatch) => {
-    const userPosts = db.collection('users').doc(docId)
-
-    userPosts
-      .collection('followers')
+    db.collection('following')
+      .doc(auth.currentUser.uid)
+      .collection('userFollowing')
       .doc(userId)
-      .set({
-        followed: true,
+      .set({ followed: true })
+
+    db.collection('users')
+      .doc(auth.currentUser.uid)
+      .update({
+        followingAmount: firebase.firestore.FieldValue.increment(1),
       })
-      .then(() => {
-        userPosts.update({
-          followersCount: firebase.firestore.FieldValue.increment(1),
-        })
+
+    db.collection('users')
+      .doc(userId)
+      .update({
+        followersAmount: firebase.firestore.FieldValue.increment(1),
       })
+
     dispatch({ type: appTypes.FOLLOW })
   }
 }
 
-export const onUnfollow = (docId, userId) => {
+export const onUnfollow = (userId) => {
   return (dispatch) => {
-    const userPosts = db.collection('users').doc(docId)
-
-    userPosts
-      .collection('followers')
+    db.collection('following')
+      .doc(auth.currentUser.uid)
+      .collection('userFollowing')
       .doc(userId)
       .delete()
-      .then(() => {
-        userPosts.update({
-          followersCount: firebase.firestore.FieldValue.increment(-1),
-        })
+
+    db.collection('users')
+      .doc(auth.currentUser.uid)
+      .update({
+        followingAmount: firebase.firestore.FieldValue.increment(-1),
       })
+
+    db.collection('users')
+      .doc(userId)
+      .update({
+        followersAmount: firebase.firestore.FieldValue.increment(-1),
+      })
+
     dispatch({ type: appTypes.UNFOLLOW })
   }
 }
