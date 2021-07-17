@@ -10,7 +10,9 @@ import {
 import { useSelector } from 'react-redux'
 
 const FeedPage = lazy(() => import('pages/FeedPage/FeedPage'))
-const ReplyTweetPage = lazy(() => import('pages/ReplyTweetPage/ReplyTweetPage'))
+const TweetSectionPage = lazy(() =>
+  import('pages/TweetSectionPage/TweetSectionPage')
+)
 const UserProfilePage = lazy(() =>
   import('pages/UserProfilePage/UserProfilePage')
 )
@@ -53,7 +55,7 @@ const Routes = () => {
             path='/status/:name'
             render={() => (
               <Layout>
-                <ReplyTweetPage />
+                <TweetSectionPage />
               </Layout>
             )}
           />
