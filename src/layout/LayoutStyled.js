@@ -5,7 +5,6 @@ export const Container = styled.div`
   justify-content: center;
   max-width: 1440px;
   margin: auto;
-  margin-bottom: 5rem;
 `
 
 export const AddTweetMobileBtn = styled.button`
