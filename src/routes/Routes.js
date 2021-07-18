@@ -52,7 +52,7 @@ const Routes = () => {
           />
           <Route
             exact
-            path='/status/:name'
+            path='/:name/status/:tweetId'
             render={() => (
               <Layout>
                 <TweetSectionPage />
