@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { onLikePress, onDislikePress } from 'redux/actions/appActions'
-import { useHistory } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 import { db } from 'firebase-config'
 import { FaRegComment } from 'react-icons/fa'
 import { AiOutlineRetweet } from 'react-icons/ai'
@@ -51,27 +51,38 @@ const Tweet = ({ tweet, biggerFont }) => {
   }, [tweet.id, user.userId])
 
   return (
-    <Container onClick={redirectToTweet}>
-      <UserAvatar
-        src={tweet.user.photoURL}
-        alt={`${tweet.user.displayName} avatar`}
-        onClick={redirectToUserProfile}
-      />
+    <Container>
+      <Link to={`/profile/${tweet.user.userName}`}>
+        <UserAvatar
+          src={tweet.user.photoURL}
+          alt={`${tweet.user.displayName} avatar`}
+          onClick={redirectToUserProfile}
+        />
+      </Link>
       <TweetFeed>
         <UserInitials>
-          <UserNames onClick={redirectToUserProfile}>
-            <DisplayName>{tweet.user.displayName}</DisplayName>
-            &nbsp;&nbsp;
-            <UserName>@{tweet.user.userName}</UserName>
-          </UserNames>
+          <Link to={`/profile/${tweet.user.userName}`}>
+            <UserNames onClick={redirectToUserProfile}>
+              <DisplayName>{tweet.user.displayName}</DisplayName>
+              &nbsp;&nbsp;
+              <UserName>@{tweet.user.userName}</UserName>
+            </UserNames>
+          </Link>
           <ShowMoreTweet data-tip='More'>
             <CgMoreAlt size='2.5rem' />
           </ShowMoreTweet>
         </UserInitials>
 
-        <TweetMessage biggerFont={biggerFont}>{tweet.message}</TweetMessage>
-
-        {tweet.images ? <ImageTweet src={tweet.images[0].url} alt='' /> : null}
+        <TweetMessage onClick={redirectToTweet} biggerFont={biggerFont}>
+          {tweet.message}
+        </TweetMessage>
+        {tweet.images ? (
+          <ImageTweet
+            onClick={redirectToTweet}
+            src={tweet.images[0].url}
+            alt={`${tweet.images[0].name}`}
+          />
+        ) : null}
 
         <TweetActions>
           <TweetActionBtn data-tip='Reply'>

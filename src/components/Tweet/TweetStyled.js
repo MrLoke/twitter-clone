@@ -5,6 +5,10 @@ export const Container = styled.div`
   padding: 1.5rem 1rem 1rem 0.5rem;
   border-bottom: 1px solid ${({ theme }) => theme.borderColor};
   transition: all 0.2s linear;
+  a {
+    text-decoration: none;
+    color: ${({ theme }) => theme.primaryText};
+  }
   &:hover {
     background-color: ${({ theme }) => theme.onHover};
   }
@@ -95,6 +99,7 @@ export const TweetMessage = styled.p`
   margin: 0rem 0 0.5rem 0;
   font-size: ${({ theme }) => theme.size.xs};
   font-weight: ${({ biggerFont }) => (biggerFont ? '400' : '300')};
+  cursor: pointer;
   ${({ theme }) => theme.media.sm} {
     font-size: ${({ biggerFont, theme }) =>
       biggerFont ? theme.size.m : theme.size.s};
@@ -130,4 +135,5 @@ export const ImageTweet = styled.img`
   max-width: 100%;
   margin: 0.5rem 0;
   border-radius: ${({ theme }) => theme.utils.smallRadius};
+  cursor: pointer;
 `

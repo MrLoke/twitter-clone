@@ -52,29 +52,21 @@ const AddTweet = ({ secondaryStyles }) => {
             name: file.name,
             url: await fileRef.getDownloadURL(),
           }),
-          comments: firebase.firestore.FieldValue.arrayUnion({
-            user: '',
-            comment: '',
-          }),
         })
+
       setText('')
       setFile(null)
     }
 
     if (text.length > 0 && file === null) {
-      db.collection('feed')
-        .doc()
-        .set({
-          timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-          message: text,
-          user: user,
-          likesCount: 0,
-          commentsCount: 0,
-          comments: firebase.firestore.FieldValue.arrayUnion({
-            user: '',
-            comment: '',
-          }),
-        })
+      db.collection('feed').doc().set({
+        timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+        message: text,
+        user: user,
+        likesCount: 0,
+        commentsCount: 0,
+      })
+
       setText('')
     } else return
 
@@ -89,6 +81,8 @@ const AddTweet = ({ secondaryStyles }) => {
           <Textarea
             cols='20'
             rows='5'
+            required={true}
+            maxLength={250}
             value={text}
             onChange={(e) => setText(e.target.value)}
             placeholder={`What's happening?`}></Textarea>
