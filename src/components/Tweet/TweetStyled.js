@@ -94,9 +94,10 @@ export const UserName = styled.p`
 export const TweetMessage = styled.p`
   margin: 0rem 0 0.5rem 0;
   font-size: ${({ theme }) => theme.size.xs};
-  font-weight: 300;
+  font-weight: ${({ biggerFont }) => (biggerFont ? '400' : '300')};
   ${({ theme }) => theme.media.sm} {
-    font-size: ${({ theme }) => theme.size.s};
+    font-size: ${({ biggerFont, theme }) =>
+      biggerFont ? theme.size.m : theme.size.s};
   }
 `
 

@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { onLikePress, onDislikePress } from 'redux/actions/appActions'
+import { useHistory } from 'react-router-dom'
 import { db } from 'firebase-config'
 import { FaRegComment } from 'react-icons/fa'
 import { AiOutlineRetweet } from 'react-icons/ai'
@@ -23,9 +24,8 @@ import {
   TweetActionBtn,
   ImageTweet,
 } from './TweetStyled'
-import { useHistory } from 'react-router-dom'
 
-const Tweet = ({ tweet }) => {
+const Tweet = ({ tweet, biggerFont }) => {
   const [likes, setLikes] = useState()
   const user = useSelector((state) => state.auth.userInfo)
   const dispatch = useDispatch()
@@ -33,6 +33,10 @@ const Tweet = ({ tweet }) => {
 
   const redirectToUserProfile = () => {
     history.push(`/profile/${tweet.user.userName}`)
+  }
+
+  const redirectToTweet = () => {
+    history.push(`/${tweet.user.userName}/status/${tweet.id}`)
   }
 
   useEffect(() => {
@@ -47,10 +51,10 @@ const Tweet = ({ tweet }) => {
   }, [tweet.id, user.userId])
 
   return (
-    <Container>
+    <Container onClick={redirectToTweet}>
       <UserAvatar
         src={tweet.user.photoURL}
-        alt={`${user.displayName} avatar`}
+        alt={`${tweet.user.displayName} avatar`}
         onClick={redirectToUserProfile}
       />
       <TweetFeed>
@@ -65,7 +69,7 @@ const Tweet = ({ tweet }) => {
           </ShowMoreTweet>
         </UserInitials>
 
-        <TweetMessage>{tweet.message}</TweetMessage>
+        <TweetMessage biggerFont={biggerFont}>{tweet.message}</TweetMessage>
 
         {tweet.images ? <ImageTweet src={tweet.images[0].url} alt='' /> : null}
 
