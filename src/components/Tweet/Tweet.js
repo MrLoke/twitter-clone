@@ -31,10 +31,6 @@ const Tweet = ({ tweet, biggerFont }) => {
   const dispatch = useDispatch()
   const history = useHistory()
 
-  const redirectToUserProfile = () => {
-    history.push(`/profile/${tweet.user.userName}`)
-  }
-
   const redirectToTweet = () => {
     history.push(`/${tweet.user.userName}/status/${tweet.id}`)
   }
@@ -56,13 +52,12 @@ const Tweet = ({ tweet, biggerFont }) => {
         <UserAvatar
           src={tweet.user.photoURL}
           alt={`${tweet.user.displayName} avatar`}
-          onClick={redirectToUserProfile}
         />
       </Link>
       <TweetFeed>
         <UserInitials>
           <Link to={`/profile/${tweet.user.userName}`}>
-            <UserNames onClick={redirectToUserProfile}>
+            <UserNames>
               <DisplayName>{tweet.user.displayName}</DisplayName>
               &nbsp;&nbsp;
               <UserName>@{tweet.user.userName}</UserName>
