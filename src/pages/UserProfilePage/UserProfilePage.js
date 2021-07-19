@@ -24,12 +24,13 @@ const UserProfilePage = () => {
   return (
     <Container>
       <UserProfile currentUserProfile={currentUserProfile} />
-      {posts?.length > 0 ? (
-        posts.map((post) => <Tweet key={post.id} tweet={post} />)
-      ) : (
-        <LoadingSpinner />
-      )}
-      {posts?.length === 0 ? <div>No posts</div> : null}
+      {posts.length !== 0 ? (
+        posts?.length > 0 ? (
+          posts.map((post) => <Tweet key={post.id} tweet={post} />)
+        ) : (
+          <LoadingSpinner />
+        )
+      ) : null}
     </Container>
   )
 }
