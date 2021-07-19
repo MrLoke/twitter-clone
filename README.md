@@ -4,14 +4,15 @@
 
 ### Demo account
 
-<p>email: demo@gmail.com</p>
-<p>password: demo123</p>
+### email: demo@gmail.com
+
+### password: demo123
 
 ---
 
 ## ✨ Features
 
-<ul>
+<div>
   <p>✅ Signup/Login validation</p>
   <p>✅ Create tweet and add photos</p>
   <p>✅ Reply to tweet</p>
@@ -21,7 +22,7 @@
   <p>❌ Edit user information</p>
   <p>✅ Toggle light/dark mode</p>
   <p>✅ Full mobile responsive layout</p>
-</ul>
+</div>
 
 ## 🚀 Tech stack
 
@@ -33,4 +34,5 @@
   <li>React Router</li>
   <li>Custom hooks</li>
   <li>Styled Components</li>
+  <li>Jest / React testing library</li>
 </ul>
