@@ -19,8 +19,10 @@ const TweetSectionPage = () => {
       .collection('feed')
       .doc(tweetId)
       .collection('comments')
-      .doc(user.userId)
-      .onSnapshot((snapshot) => setComments([snapshot.data()]))
+      .onSnapshot((snapshot) => {
+        if (snapshot.size < 0) return
+        setComments(snapshot.docs.map((doc) => doc.data()))
+      })
 
     if (feed.length > 0) {
       // waiting for fetch feed if refresh on this page
@@ -33,17 +35,20 @@ const TweetSectionPage = () => {
 
   return (
     <Container>
+      {console.log(comments)}
       {post?.length > 0 ? (
         post.map((tweet) => <Tweet key={tweet.id} tweet={tweet} biggerFont />)
       ) : (
         <LoadingSpinner />
       )}
       <TweetReply />
-      {comments?.length > 0 ? (
-        comments.map((comment) => <Tweet key={comment.id} tweet={comment} />)
-      ) : (
-        <LoadingSpinner />
-      )}
+      {comments.length !== 0 ? (
+        comments.length > 0 ? (
+          comments.map((comment) => <Tweet key={comment.id} tweet={comment} />)
+        ) : (
+          <LoadingSpinner />
+        )
+      ) : null}
     </Container>
   )
 }
