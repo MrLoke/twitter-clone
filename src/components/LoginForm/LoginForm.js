@@ -45,7 +45,7 @@ const LoginForm = () => {
         {...register('password')}
       />
 
-      <SubmitBtn type='submit'>
+      <SubmitBtn type='submit' data-testid='log-in'>
         {loading ? <LoadingSpinner smallSpinner /> : <p>Log in</p>}
       </SubmitBtn>
       <ForgotPassword>

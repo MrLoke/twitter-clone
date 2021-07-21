@@ -134,7 +134,7 @@ const SignupForm = () => {
         )}
         <FileLabel htmlFor='profile-avatar'>Set avatar</FileLabel>
         <InputFile type='file' onChange={onFileChange} id='profile-avatar' />
-        <SubmitBtn type='submit'>
+        <SubmitBtn type='submit' data-testid='sign-up'>
           {loading ? <LoadingSpinner smallSpinner /> : <p>Create account</p>}
         </SubmitBtn>
         {signupError ? <ErrorMessage>{signupError}</ErrorMessage> : null}
