@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import LoadingSpinner from 'components/LoadingSpinner/LoadingSpinner'
+import NavBar from 'components/NavBar/NavBar'
 import UserProfile from 'components/UserProfile/UserProfile'
 import Tweet from 'components/Tweet/Tweet'
 import { useParams } from 'react-router-dom'
@@ -23,6 +24,8 @@ const UserProfilePage = () => {
 
   return (
     <Container>
+      <NavBar text={currentUserProfile?.displayName} backIcon />
+      {console.log(currentUserProfile)}
       <UserProfile currentUserProfile={currentUserProfile} />
       {posts.length !== 0 ? (
         posts?.length > 0 ? (

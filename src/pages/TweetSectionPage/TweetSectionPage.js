@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import NavBar from 'components/NavBar/NavBar'
 import Tweet from 'components/Tweet/Tweet'
 import TweetReply from 'components/TweetReply/TweetReply'
 import LoadingSpinner from 'components/LoadingSpinner/LoadingSpinner'
@@ -35,6 +36,7 @@ const TweetSectionPage = () => {
 
   return (
     <Container>
+      <NavBar text='Tweet' backIcon />
       {console.log(comments)}
       {post?.length > 0 ? (
         post.map((tweet) => <Tweet key={tweet.id} tweet={tweet} biggerFont />)
