@@ -37,7 +37,6 @@ const TweetSectionPage = () => {
   return (
     <Container>
       <NavBar text='Tweet' backIcon />
-      {console.log(comments)}
       {post?.length > 0 ? (
         post.map((tweet) => <Tweet key={tweet.id} tweet={tweet} biggerFont />)
       ) : (

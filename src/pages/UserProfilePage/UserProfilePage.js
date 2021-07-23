@@ -25,7 +25,6 @@ const UserProfilePage = () => {
   return (
     <Container>
       <NavBar text={currentUserProfile?.displayName} backIcon />
-      {console.log(currentUserProfile)}
       <UserProfile currentUserProfile={currentUserProfile} />
       {posts.length !== 0 ? (
         posts?.length > 0 ? (
