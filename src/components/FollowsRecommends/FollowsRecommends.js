@@ -1,6 +1,7 @@
 import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import LoadingSpinner from 'components/LoadingSpinner/LoadingSpinner'
+import SearchBar from 'components/SearchBar/SearchBar'
 import RecommendedUser from 'components/RecommendedUser/RecommendedUser'
 import {
   Wrapper,
@@ -16,6 +17,7 @@ const FollowsRecommends = () => {
 
   return (
     <Wrapper>
+      <SearchBar />
       <Container>
         <Header>Who to follow</Header>
         {users.length > 0 ? (
