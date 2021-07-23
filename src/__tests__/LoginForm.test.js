@@ -1,59 +1,36 @@
 import { render, fireEvent, cleanup } from '@testing-library/react'
-import { BrowserRouter as Router } from 'react-router-dom'
 import { act } from 'react-dom/test-utils'
+import { Router } from 'react-router-dom'
+import { createMemoryHistory } from 'history'
 import LoginForm from 'components/LoginForm/LoginForm'
 import { Provider } from 'react-redux'
 import { PersistGate } from 'redux-persist/integration/react'
 import { store, persistor } from 'redux/store'
 import { ThemeProvider } from 'styled-components'
 import { appTheme } from 'theme/theme'
-import firebase from 'firebase/app'
-import { logIn } from 'redux/actions/authActions'
-import { authTypes } from 'redux/actionTypes/authTypes'
-import thunk from 'redux-thunk'
-import configureMockStore from 'redux-mock-store'
-
-const middlewares = [thunk]
-const mockStore = configureMockStore(middlewares)
+import userEvent from '@testing-library/user-event'
 
 jest.mock('react-router-dom', () => ({
   ...jest.requireActual('react-router-dom'),
-  useHistory: () => ({}),
+  useHistory: () => ({
+    push: jest.fn(),
+  }),
 }))
 
-function mockFirebaseService() {
-  return new Promise((resolve) => resolve(true))
-}
-
-jest.mock(
-  '../firebase-config/index.js',
-  () => new Promise((resolve) => resolve(true))
-)
-
-// jest.mock('../firebase-config/index.js', () => {
-//   return {
-//     auth: jest.fn(() => ({
-//       signInWithEmailAndPassword: jest.fn(() => Promise.resolve()),
-//     })),
-//   }
-// })
-
 describe('<LoginForm />', () => {
-  let store
-  beforeEach(() => {
-    store = mockStore({})
+  afterEach(() => {
+    jest.resetAllMocks()
+    cleanup()
   })
 
-  test('renders the log in page with a form submission', async () => {
-    const user = {
-      email: 'first.last@yum.com',
-      password: 'abd123',
-    }
-    const { getByTestId, getByPlaceholderText, queryByTestId } = render(
+  test('test location push to feed page', async () => {
+    const history = createMemoryHistory()
+
+    const { getByTestId } = render(
       <Provider store={store}>
         <PersistGate persistor={persistor}>
           <ThemeProvider theme={{ ...store.theme, ...appTheme }}>
-            <Router>
+            <Router history={history}>
               <LoginForm />
             </Router>
           </ThemeProvider>
@@ -61,42 +38,44 @@ describe('<LoginForm />', () => {
       </Provider>
     )
 
-    store.dispatch(logIn(user.email, user.password)).then(() => {
-      expect(mockFirebaseService).toHaveBeenCalled()
+    await act(async () => {
+      const submitBtn = getByTestId('log-in')
+      expect(submitBtn).toBeInTheDocument()
+
+      userEvent.click(submitBtn)
+
+      expect(history.length).toBe(1)
+      expect(history.location.pathname).toBe('/')
     })
-    jest.mock(
-      '../firebase-config/index.js',
-      () =>
-        new Promise((resolve) =>
-          resolve({
-            signInWithEmailAndPassword: () => {
-              return { getIdToken: () => '123' }
-            },
-          })
-        )
+  })
+
+  test('renders the log in page with a form submission', async () => {
+    const history = createMemoryHistory()
+    const route = '/login'
+    history.push(route)
+
+    const { getByTestId, getByPlaceholderText, queryByTestId } = render(
+      <Provider store={store}>
+        <PersistGate persistor={persistor}>
+          <ThemeProvider theme={{ ...store.theme, ...appTheme }}>
+            <Router history={history}>
+              <LoginForm />
+            </Router>
+          </ThemeProvider>
+        </PersistGate>
+      </Provider>
     )
 
     await act(async () => {
-      // jest.mock('../firebase-config/index.js', () => ({
-      //   signInWithEmailAndPassword(email, password) {
-      //     return Promise.resolve({ name: 'someUser' })
-      //   },
-      // }))
-
-      // firebase.auth().signInWithEmailAndPassword(email, password)
-      // expect(dispatch.mock.calls.length).toBe(1)
-
-      await fireEvent.change(getByPlaceholderText('Email'), {
+      fireEvent.change(getByPlaceholderText('Email'), {
         target: { value: 'demo@gmail.com' },
       })
-      await fireEvent.change(getByPlaceholderText('Password'), {
+
+      fireEvent.change(getByPlaceholderText('Password'), {
         target: { value: 'password' },
       })
       fireEvent.click(getByTestId('log-in'))
-      // expect(firebase.auth().signInWithEmailAndPassword).toBeCalledWith(
-      //   'demo@gmail.com',
-      //   'password'
-      // )
+
       expect(getByPlaceholderText('Email').value).toBe('demo@gmail.com')
       expect(getByPlaceholderText('Password').value).toBe('password')
       expect(queryByTestId('error')).toBeFalsy()

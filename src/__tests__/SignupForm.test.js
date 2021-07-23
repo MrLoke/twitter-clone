@@ -1,45 +1,36 @@
-import { render, fireEvent } from '@testing-library/react'
-import { BrowserRouter as Router } from 'react-router-dom'
+import { render, fireEvent, cleanup } from '@testing-library/react'
 import { act } from 'react-dom/test-utils'
+import { Router } from 'react-router-dom'
+import { createMemoryHistory } from 'history'
 import SignupForm from 'components/SignupForm/SignupForm'
 import { Provider } from 'react-redux'
 import { PersistGate } from 'redux-persist/integration/react'
 import { store, persistor } from 'redux/store'
 import { ThemeProvider } from 'styled-components'
 import { appTheme } from 'theme/theme'
-import { authMock } from 'setupTests'
-import firebase from 'firebase/app'
-firebase.auth = authMock
+import userEvent from '@testing-library/user-event'
+
 jest.mock('react-router-dom', () => ({
   ...jest.requireActual('react-router-dom'),
-  useHistory: () => ({}),
+  useHistory: () => ({
+    push: jest.fn(),
+  }),
 }))
-jest.mock('../firebase-config/index.js', () => {
-  return {
-    auth: jest.fn(() => ({
-      createUserWithEmailAndPassword: jest.fn(() => Promise.resolve()),
-    })),
-  }
-})
-// const firebase = {
-//   auth: jest.fn(() => ({
-//     createUserWithEmailAndPassword: jest.fn(() =>
-//       Promise.resolve({
-//         user: {
-//           updateProfile: jest.fn(() => Promise.resolve('I am signed up!')),
-//         },
-//       })
-//     ),
-//   })),
-// }
 
 describe('<SignUp />', () => {
-  test('renders the sign up page with a form submission', async () => {
-    const { getByTestId, getByPlaceholderText, queryByTestId } = render(
+  afterEach(() => {
+    jest.resetAllMocks()
+    cleanup()
+  })
+
+  test('test location push to feed page', async () => {
+    const history = createMemoryHistory()
+
+    const { getByTestId } = render(
       <Provider store={store}>
         <PersistGate persistor={persistor}>
           <ThemeProvider theme={{ ...store.theme, ...appTheme }}>
-            <Router>
+            <Router history={history}>
               <SignupForm />
             </Router>
           </ThemeProvider>
@@ -47,21 +38,45 @@ describe('<SignUp />', () => {
       </Provider>
     )
 
-    const submitBtn = getByTestId('sign-up')
+    await act(async () => {
+      const submitBtn = getByTestId('sign-up')
+      expect(submitBtn).toBeInTheDocument()
+
+      userEvent.click(submitBtn)
+
+      expect(history.length).toBe(1)
+      expect(history.location.pathname).toBe('/')
+    })
+  })
+
+  test('renders the sign up page with a form submission', async () => {
+    const history = createMemoryHistory()
+    const route = '/signup'
+    history.push(route)
+
+    const { getByTestId, getByPlaceholderText, queryByTestId } = render(
+      <Provider store={store}>
+        <PersistGate persistor={persistor}>
+          <ThemeProvider theme={{ ...store.theme, ...appTheme }}>
+            <Router history={history}>
+              <SignupForm />
+            </Router>
+          </ThemeProvider>
+        </PersistGate>
+      </Provider>
+    )
 
     await act(async () => {
-      await fireEvent.change(getByPlaceholderText('@username'), {
+      fireEvent.change(getByPlaceholderText('@username'), {
         target: { value: 'demo' },
       })
-      await fireEvent.change(getByPlaceholderText('Email'), {
+      fireEvent.change(getByPlaceholderText('Email'), {
         target: { value: 'demo@gmail.com' },
       })
-      await fireEvent.change(getByPlaceholderText('Password'), {
+      fireEvent.change(getByPlaceholderText('Password'), {
         target: { value: 'password' },
       })
       fireEvent.click(getByTestId('sign-up'))
-
-      fireEvent.click(submitBtn)
 
       expect(getByPlaceholderText('Email').value).toBe('demo@gmail.com')
       expect(getByPlaceholderText('Password').value).toBe('password')
