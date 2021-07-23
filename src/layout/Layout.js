@@ -3,11 +3,18 @@ import AddTweet from 'components/AddTweet/AddTweet'
 import FollowsRecommends from 'components/FollowsRecommends/FollowsRecommends'
 import MobileNav from 'components/MobileNav/MobileNav'
 import Modal from 'components/Modal/Modal'
-import { showModal } from 'redux/actions/modalActions'
-import { useDispatch } from 'react-redux'
+import SearchBar from 'components/SearchBar/SearchBar'
+import {
+  showModal,
+  hideModal,
+  hideSearchModal,
+} from 'redux/actions/modalActions'
+import { useDispatch, useSelector } from 'react-redux'
 import { Container, AddTweetMobileBtn } from './LayoutStyled'
 
 const Layout = ({ children }) => {
+  const modalIsOpen = useSelector((state) => state.modal.modalIsOpen)
+  const searchIsOpen = useSelector((state) => state.modal.searchIsOpen)
   const dispatch = useDispatch()
 
   return (
@@ -15,8 +22,11 @@ const Layout = ({ children }) => {
       <Sidebar />
       {children}
       <FollowsRecommends />
-      <Modal>
+      <Modal modalIsOpen={modalIsOpen} hideModal={hideModal}>
         <AddTweet secondaryStyles />
+      </Modal>
+      <Modal modalIsOpen={searchIsOpen} hideModal={hideSearchModal}>
+        <SearchBar />
       </Modal>
       <MobileNav />
       <AddTweetMobileBtn onClick={() => dispatch(showModal())}>
