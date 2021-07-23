@@ -1,10 +1,8 @@
-import { useDispatch, useSelector } from 'react-redux'
-import { hideModal } from 'redux/actions/modalActions'
+import { useDispatch } from 'react-redux'
 import { IoCloseOutline } from 'react-icons/io5'
 import { StyledModal, Container, CloseModalBtn } from './ModalStyled'
 
-const Modal = ({ children }) => {
-  const modalIsOpen = useSelector((state) => state.modal.modalIsOpen)
+const Modal = ({ children, modalIsOpen, hideModal }) => {
   const dispatch = useDispatch()
 
   return (
