@@ -43,8 +43,7 @@ const TweetReply = () => {
 
       userPosts
         .collection('comments')
-        .doc(user.userId)
-        .set({
+        .add({
           message: text,
           user: user,
           id: nanoid(),
@@ -65,8 +64,7 @@ const TweetReply = () => {
 
     userPosts
       .collection('comments')
-      .doc(user.userId)
-      .set({
+      .add({
         message: text,
         user: user,
         id: nanoid(),

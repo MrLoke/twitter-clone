@@ -2,6 +2,7 @@ import styled from 'styled-components/macro'
 
 export const Container = styled.div`
   border-top: 1px solid ${({ theme }) => theme.borderColor};
+  border-bottom: 1px solid ${({ theme }) => theme.borderColor};
 `
 
 export const HeaderPhoto = styled.div`
