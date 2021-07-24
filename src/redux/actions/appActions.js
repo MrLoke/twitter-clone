@@ -30,7 +30,7 @@ export const fetchFeed = () => {
   }
 }
 
-export const onLikePress = (docId, userId) => {
+export const likeTweet = (docId, userId) => {
   return (dispatch) => {
     const userPosts = db.collection('feed').doc(docId)
 
@@ -49,7 +49,7 @@ export const onLikePress = (docId, userId) => {
   }
 }
 
-export const onDislikePress = (docId, userId) => {
+export const dislikeTweet = (docId, userId) => {
   return (dispatch) => {
     const userPosts = db.collection('feed').doc(docId)
 
@@ -62,6 +62,52 @@ export const onDislikePress = (docId, userId) => {
           likesCount: firebase.firestore.FieldValue.increment(-1),
         })
       })
+    dispatch({ type: appTypes.PRESS_DISLIKE })
+  }
+}
+
+export const likeComment = (docId, comId, userId) => {
+  return (dispatch) => {
+    const userComments = db
+      .collection('feed')
+      .doc(docId)
+      .collection('comments')
+      .doc(comId)
+
+    userComments
+      .collection('likes')
+      .doc(userId)
+      .set({
+        liked: true,
+      })
+      .then(() => {
+        userComments.update({
+          likesCount: firebase.firestore.FieldValue.increment(1),
+        })
+      })
+
+    dispatch({ type: appTypes.PRESS_LIKE })
+  }
+}
+
+export const dislikeComment = (docId, comId, userId) => {
+  return (dispatch) => {
+    const userComments = db
+      .collection('feed')
+      .doc(docId)
+      .collection('comments')
+      .doc(comId)
+
+    userComments
+      .collection('likes')
+      .doc(userId)
+      .delete()
+      .then(() => {
+        userComments.update({
+          likesCount: firebase.firestore.FieldValue.increment(-1),
+        })
+      })
+
     dispatch({ type: appTypes.PRESS_DISLIKE })
   }
 }
