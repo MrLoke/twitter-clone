@@ -1,9 +1,8 @@
 import styled from 'styled-components/macro'
 
 export const Container = styled.div`
-  padding: 1rem 1rem 1rem 0;
+  padding: 2rem 1rem 2rem 0;
   border-bottom: 1px solid ${({ theme }) => theme.borderColor};
-  margin-bottom: 3rem;
 `
 
 export const Form = styled.form`
@@ -40,10 +39,11 @@ export const Textarea = styled.textarea`
 
 export const TweetMultimedia = styled.div`
   display: flex;
+  align-items: center;
   justify-content: space-between;
   width: 85%;
   margin-top: 1rem;
-  margin-left: 13%; // rest % from TweetMultimedia width
+  margin-left: 15%;
 `
 
 export const ActionTweet = styled.span`

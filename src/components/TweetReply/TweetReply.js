@@ -7,7 +7,6 @@ import { FiImage } from 'react-icons/fi'
 import { GrEmoji } from 'react-icons/gr'
 import { AiOutlineFileGif } from 'react-icons/ai'
 import ReactTooltip from 'react-tooltip'
-import { nanoid } from 'nanoid'
 import {
   Container,
   Form,
@@ -46,7 +45,7 @@ const TweetReply = () => {
         .add({
           message: text,
           user: user,
-          id: nanoid(),
+          likesCount: 0,
           images: firebase.firestore.FieldValue.arrayUnion({
             name: file.name,
             url: await fileRef.getDownloadURL(),
@@ -67,7 +66,7 @@ const TweetReply = () => {
       .add({
         message: text,
         user: user,
-        id: nanoid(),
+        likesCount: 0,
       })
       .then(() => {
         userPosts.update({
