@@ -1,12 +1,18 @@
 import { BiLeftArrowAlt } from 'react-icons/bi'
+import { useHistory } from 'react-router-dom'
 import ReactTooltip from 'react-tooltip'
 import { Container, Header, BackBtn } from './NavBarStyled'
 
 const NavBar = ({ text, backIcon }) => {
+  const history = useHistory()
+
   return (
     <Container>
       {backIcon ? (
-        <BackBtn data-tip='Back' data-delay-show='500'>
+        <BackBtn
+          onClick={() => history.goBack()}
+          data-tip='Back'
+          data-delay-show='500'>
           <BiLeftArrowAlt size='3rem' color='rgba(29, 161, 242)' />
         </BackBtn>
       ) : null}

@@ -18,7 +18,6 @@ export const BackBtn = styled.span`
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 0.3rem;
   margin-right: 2rem;
   border-radius: ${({ theme }) => theme.utils.bigRadius};
   cursor: pointer;
