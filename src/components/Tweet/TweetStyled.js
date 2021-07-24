@@ -117,7 +117,7 @@ export const TweetActions = styled.div`
 
 export const TweetActionBtn = styled.span`
   display: flex;
-  justify-content: ${({ isLike }) => (isLike ? 'space-around' : 'center')};
+  justify-content: space-around;
   align-items: center;
   cursor: pointer;
   width: 4rem;

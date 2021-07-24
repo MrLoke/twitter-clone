@@ -5,6 +5,7 @@ import NavBar from 'components/NavBar/NavBar'
 import UserProfile from 'components/UserProfile/UserProfile'
 import Tweet from 'components/Tweet/Tweet'
 import { useParams } from 'react-router-dom'
+import { likeTweet, dislikeTweet } from 'redux/actions/appActions'
 import { Container } from './UserProfilePageStyled'
 
 const UserProfilePage = () => {
@@ -28,7 +29,14 @@ const UserProfilePage = () => {
       <UserProfile currentUserProfile={currentUserProfile} />
       {posts.length !== 0 ? (
         posts?.length > 0 ? (
-          posts.map((post) => <Tweet key={post.id} tweet={post} />)
+          posts.map((post) => (
+            <Tweet
+              key={post.id}
+              tweet={post}
+              onPressLike={likeTweet}
+              onPressDislike={dislikeTweet}
+            />
+          ))
         ) : (
           <LoadingSpinner />
         )

@@ -3,6 +3,7 @@ import NavBar from 'components/NavBar/NavBar'
 import AddTweet from 'components/AddTweet/AddTweet'
 import Tweet from 'components/Tweet/Tweet'
 import LoadingSpinner from 'components/LoadingSpinner/LoadingSpinner'
+import { likeTweet, dislikeTweet } from 'redux/actions/appActions'
 import { MainFeed } from './FeedPageStyled'
 
 const FeedPage = () => {
@@ -13,7 +14,14 @@ const FeedPage = () => {
       <NavBar text='Home' />
       <AddTweet />
       {feed.length > 0 ? (
-        feed.map((tweet) => <Tweet key={tweet.id} tweet={tweet} />)
+        feed.map((tweet) => (
+          <Tweet
+            key={tweet.id}
+            onPressLike={likeTweet}
+            onPressDislike={dislikeTweet}
+            tweet={tweet}
+          />
+        ))
       ) : (
         <LoadingSpinner />
       )}

@@ -1,10 +1,17 @@
 import { useState, useEffect } from 'react'
 import NavBar from 'components/NavBar/NavBar'
 import Tweet from 'components/Tweet/Tweet'
+import Comment from 'components/Comment/Comment'
 import TweetReply from 'components/TweetReply/TweetReply'
 import LoadingSpinner from 'components/LoadingSpinner/LoadingSpinner'
-import { useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
+import { useSelector } from 'react-redux'
+import {
+  likeComment,
+  dislikeComment,
+  likeTweet,
+  dislikeTweet,
+} from 'redux/actions/appActions'
 import { db } from 'firebase-config'
 import { Container } from './TweetSectionPageStyled'
 
@@ -22,7 +29,7 @@ const TweetSectionPage = () => {
       .collection('comments')
       .onSnapshot((snapshot) => {
         if (snapshot.size < 0) return
-        setComments(snapshot.docs.map((doc) => doc.data()))
+        setComments(snapshot.docs.map((doc) => [{ id: doc.id, ...doc.data() }]))
       })
 
     if (feed.length > 0) {
@@ -38,14 +45,29 @@ const TweetSectionPage = () => {
     <Container>
       <NavBar text='Tweet' backIcon />
       {post?.length > 0 ? (
-        post.map((tweet) => <Tweet key={tweet.id} tweet={tweet} biggerFont />)
+        post.map((tweet) => (
+          <Tweet
+            key={tweet.id}
+            tweet={tweet}
+            onPressLike={likeTweet}
+            onPressDislike={dislikeTweet}
+            biggerFont
+          />
+        ))
       ) : (
         <LoadingSpinner />
       )}
       <TweetReply />
       {comments.length !== 0 ? (
         comments.length > 0 ? (
-          comments.map((comment) => <Tweet key={comment.id} tweet={comment} />)
+          comments.map((comment) => (
+            <Comment
+              key={comment[0].id}
+              onPressLike={likeComment}
+              onPressDislike={dislikeComment}
+              comment={comment}
+            />
+          ))
         ) : (
           <LoadingSpinner />
         )

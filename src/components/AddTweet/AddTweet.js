@@ -40,26 +40,24 @@ const AddTweet = ({ secondaryStyles }) => {
       const fileRef = storageRef.child(file.name)
       await fileRef.put(file)
 
-      db.collection('feed')
-        .doc()
-        .set({
-          timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-          message: text,
-          user: user,
-          likesCount: 0,
-          commentsCount: 0,
-          images: firebase.firestore.FieldValue.arrayUnion({
-            name: file.name,
-            url: await fileRef.getDownloadURL(),
-          }),
-        })
+      db.collection('feed').add({
+        timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+        message: text,
+        user: user,
+        likesCount: 0,
+        commentsCount: 0,
+        images: firebase.firestore.FieldValue.arrayUnion({
+          name: file.name,
+          url: await fileRef.getDownloadURL(),
+        }),
+      })
 
       setText('')
       setFile(null)
     }
 
     if (text.length > 0 && file === null) {
-      db.collection('feed').doc().set({
+      db.collection('feed').add({
         timestamp: firebase.firestore.FieldValue.serverTimestamp(),
         message: text,
         user: user,

@@ -39,10 +39,11 @@ export const UserAvatar = styled.img`
 
 export const TweetMultimedia = styled.div`
   display: flex;
+  align-items: center;
   justify-content: space-between;
   width: 85%;
   margin-top: 1rem;
-  margin-left: 13%; // rest % from TweetMultimedia width
+  margin-left: 15%;
 `
 
 export const ActionTweet = styled.span`
