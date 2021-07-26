@@ -60,14 +60,16 @@ const TweetSectionPage = () => {
       <TweetReply />
       {comments.length !== 0 ? (
         comments.length > 0 ? (
-          comments.map((comment) => (
-            <Comment
-              key={comment[0].id}
-              onPressLike={likeComment}
-              onPressDislike={dislikeComment}
-              comment={comment}
-            />
-          ))
+          comments
+            .flat()
+            .map((comment) => (
+              <Comment
+                key={comment.id}
+                onPressLike={likeComment}
+                onPressDislike={dislikeComment}
+                comment={comment}
+              />
+            ))
         ) : (
           <LoadingSpinner />
         )
