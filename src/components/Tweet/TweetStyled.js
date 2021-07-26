@@ -106,6 +106,11 @@ export const TweetMessage = styled.p`
   }
 `
 
+export const TweetDate = styled.p`
+  font-size: ${({ theme }) => theme.size.xs};
+  font-weight: 300;
+`
+
 export const TweetActions = styled.div`
   display: flex;
   justify-content: space-between;
