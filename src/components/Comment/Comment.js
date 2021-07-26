@@ -35,7 +35,7 @@ const Comment = ({ comment }) => {
       .collection('feed')
       .doc(tweetId)
       .collection('comments')
-      .doc(comment[0].id)
+      .doc(comment.id)
       .collection('likes')
       .doc(user.userId)
       .onSnapshot((snapshot) => setLikes(snapshot.data()))
@@ -45,19 +45,19 @@ const Comment = ({ comment }) => {
 
   return (
     <Container>
-      <Link to={`/profile/${comment[0].user.userName}`}>
+      <Link to={`/profile/${comment.user.userName}`}>
         <UserAvatar
-          src={comment[0].user.photoURL}
-          alt={`${comment[0].user.displayName} avatar`}
+          src={comment.user.photoURL}
+          alt={`${comment.user.displayName} avatar`}
         />
       </Link>
       <TweetFeed>
         <UserInitials>
-          <Link to={`/profile/${comment[0].user.userName}`}>
+          <Link to={`/profile/${comment.user.userName}`}>
             <UserNames>
-              <DisplayName>{comment[0].user.displayName}</DisplayName>
+              <DisplayName>{comment.user.displayName}</DisplayName>
               &nbsp;&nbsp;
-              <UserName>@{comment[0].user.userName}</UserName>
+              <UserName>@{comment.user.userName}</UserName>
             </UserNames>
           </Link>
           <ShowMoreTweet data-tip='More'>
@@ -65,12 +65,9 @@ const Comment = ({ comment }) => {
           </ShowMoreTweet>
         </UserInitials>
 
-        <TweetMessage>{comment[0].message}</TweetMessage>
-        {comment[0].images ? (
-          <ImageTweet
-            src={comment[0].images[0].url}
-            alt={`${comment[0].images[0].name}`}
-          />
+        <TweetMessage>{comment.message}</TweetMessage>
+        {comment.images ? (
+          <ImageTweet src={comment.images.url} alt={`${comment.images.name}`} />
         ) : null}
 
         <TweetActions>
@@ -82,19 +79,19 @@ const Comment = ({ comment }) => {
             <TweetActionBtn
               isLike
               onClick={() =>
-                dispatch(dislikeComment(tweetId, comment[0].id, user.userId))
+                dispatch(dislikeComment(tweetId, comment.id, user.userId))
               }>
               <FcLike size='2rem' />
-              {comment[0].likesCount}
+              {comment.likesCount}
             </TweetActionBtn>
           ) : (
             <TweetActionBtn
               isLike
               onClick={() =>
-                dispatch(likeComment(tweetId, comment[0].id, user.userId))
+                dispatch(likeComment(tweetId, comment.id, user.userId))
               }>
               <AiOutlineHeart size='2rem' />
-              {comment[0].likesCount}
+              {comment.likesCount}
             </TweetActionBtn>
           )}
 
