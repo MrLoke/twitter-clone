@@ -28,7 +28,7 @@ const UserProfilePage = () => {
       <NavBar text={currentUserProfile?.displayName} backIcon />
       <UserProfile currentUserProfile={currentUserProfile} />
       {posts.length !== 0 ? (
-        posts?.length > 0 ? (
+        posts.length > 0 ? (
           posts.map((post) => (
             <Tweet
               key={post.id}

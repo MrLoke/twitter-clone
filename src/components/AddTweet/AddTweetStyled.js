@@ -1,9 +1,8 @@
 import styled from 'styled-components/macro'
 
 export const Container = styled.div`
-  padding: 1rem 1rem 1rem 0;
+  padding: 1rem 1rem 2rem 0;
   border-bottom: 1px solid ${({ theme }) => theme.borderColor};
-  margin-bottom: 3rem;
 `
 
 export const Form = styled.form`
