@@ -16,6 +16,7 @@ import {
   UserMenuInfo,
   UserContainer,
   UserMenuItem,
+  ToggleThemeBtn,
 } from './UserInfoStyled'
 
 const UserInfo = () => {
@@ -43,8 +44,12 @@ const UserInfo = () => {
         </UserContainer>
 
         <UserMenuItem>
-          <button onClick={() => changeTheme(darkTheme)}>Dark</button>
-          <button onClick={() => changeTheme(lightTheme)}>Light</button>
+          <ToggleThemeBtn darkTheme onClick={() => changeTheme(darkTheme)}>
+            Dark
+          </ToggleThemeBtn>
+          <ToggleThemeBtn onClick={() => changeTheme(lightTheme)}>
+            Light
+          </ToggleThemeBtn>
         </UserMenuItem>
 
         <UserMenuItem

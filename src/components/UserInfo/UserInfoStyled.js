@@ -89,3 +89,21 @@ export const UserMenuItem = styled.div`
   padding: 1.5rem 0.5rem;
   cursor: pointer;
 `
+
+export const ToggleThemeBtn = styled.span`
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: ${({ theme }) => theme.size.xs};
+  font-weight: 400;
+  border: 1px solid ${({ theme }) => theme.primary500};
+  background-color: ${({ darkTheme }) =>
+    darkTheme ? 'rgba(5, 5, 5)' : 'rgba(255, 255, 255)'};
+  color: ${({ darkTheme }) =>
+    darkTheme ? 'rgba(255, 255, 255)' : 'rgba(5, 5, 5)'};
+  border-radius: ${({ theme }) => theme.utils.bigRadius};
+  &:first-child {
+    margin-right: 1rem;
+  }
+`
