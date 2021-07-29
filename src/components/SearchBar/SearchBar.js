@@ -42,11 +42,10 @@ const SearchBar = () => {
   }
 
   const handleOnChange = (e, { newValue }) => {
-    setValue(newValue)
+    setValue(typeof newValue !== 'undefined' ? newValue : '')
   }
 
   const onSuggestionsFetchRequested = async ({ value }) => {
-    console.log(value)
     setSuggestions(getSuggestions(value))
   }
 
