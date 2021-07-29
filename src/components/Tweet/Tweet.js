@@ -19,7 +19,6 @@ import {
   DisplayName,
   UserName,
   TweetMessage,
-  TweetDate,
   TweetActions,
   TweetActionBtn,
   ImageTweet,
@@ -63,7 +62,6 @@ const Tweet = ({ tweet, biggerFont, onPressLike, onPressDislike }) => {
               <UserName>@{tweet.user.userName}</UserName>
             </UserNames>
           </Link>
-          <TweetDate>{tweet.timestamp.toDate().toDateString()}</TweetDate>
           <ShowMoreTweet data-tip='More'>
             <CgMoreAlt size='2.5rem' />
           </ShowMoreTweet>

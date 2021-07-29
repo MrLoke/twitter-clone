@@ -23,12 +23,14 @@ const FeedPage = () => {
         const currUserFeed = feed.filter(
           (post) => post.user.userId === user.userId
         )
-        setFollowingUsersFeed([
-          ...currUserFeed,
-          ...snapshot.docs.map((doc) =>
-            feed.filter((post) => post.user.userId === doc.id)
-          ),
-        ])
+        setFollowingUsersFeed(
+          [
+            ...currUserFeed,
+            ...snapshot.docs.map((doc) =>
+              feed.filter((post) => post.user.userId === doc.id)
+            ),
+          ].flat()
+        )
       })
 
     return () => unsubscribe()
@@ -40,8 +42,7 @@ const FeedPage = () => {
       <AddTweet />
       {feed.length > 0 ? (
         followingUsersFeed
-          .flat()
-          .sort((a, b) => a.timestamp.nanoseconds - b.timestamp.nanoseconds)
+          // .sort((a, b) => a.timestamp.nanoseconds - b.timestamp.nanoseconds)
           .map((tweet) => (
             <Tweet
               key={tweet.id}
