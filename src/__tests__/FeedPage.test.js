@@ -18,7 +18,7 @@ describe('<FeedPage />', () => {
   })
 
   test('render the feed page', () => {
-    const { getByText, getAllByText, getAllByPlaceholderText } = render(
+    const { getByText, getAllByText } = render(
       <Provider store={store}>
         <PersistGate persistor={persistor}>
           <ThemeProvider theme={{ ...store.theme, ...appTheme }}>
@@ -29,14 +29,7 @@ describe('<FeedPage />', () => {
         </PersistGate>
       </Provider>
     )
-    expect(getByText('Unlimited films, TV programmes and more.')).toBeTruthy()
-    expect(getByText('Watch anywhere. Cancel at any time.')).toBeTruthy()
-    expect(getAllByPlaceholderText('Email address')).toBeTruthy()
+    expect(getByText('Who to follow')).toBeTruthy()
     expect(getAllByText('Try it now')).toBeTruthy()
-    expect(
-      getAllByText(
-        'Ready to watch? Enter your email to create or restart your membership.'
-      )
-    ).toBeTruthy()
   })
 })
