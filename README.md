@@ -1,6 +1,6 @@
 # Twitter clone
 
-## [twitter-clone-cd0e0.web.app/](twitter-clone-cd0e0.web.app/)
+## [LIVE DEMO](twitter-clone-cd0e0.web.app/login)
 
 Demo account
 <br />
