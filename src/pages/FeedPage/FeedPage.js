@@ -20,9 +20,11 @@ const FeedPage = () => {
       .collection('userFollowing')
       .onSnapshot((snapshot) => {
         if (snapshot.size < 0) return
+        // filter the current login user tweets and spread it with other following users tweets
         const currUserFeed = feed.filter(
           (post) => post.user.userId === user.userId
         )
+
         setFollowingUsersFeed(
           [
             ...currUserFeed,
@@ -40,17 +42,15 @@ const FeedPage = () => {
     <MainFeed>
       <NavBar text='Home' />
       <AddTweet />
-      {feed.length > 0 ? (
-        followingUsersFeed
-          // .sort((a, b) => a.timestamp.nanoseconds - b.timestamp.nanoseconds)
-          .map((tweet) => (
-            <Tweet
-              key={tweet.id}
-              onPressLike={likeTweet}
-              onPressDislike={dislikeTweet}
-              tweet={tweet}
-            />
-          ))
+      {followingUsersFeed.length > 0 ? (
+        followingUsersFeed.map((tweet) => (
+          <Tweet
+            key={tweet.id}
+            onPressLike={likeTweet}
+            onPressDislike={dislikeTweet}
+            tweet={tweet}
+          />
+        ))
       ) : (
         <LoadingSpinner />
       )}
