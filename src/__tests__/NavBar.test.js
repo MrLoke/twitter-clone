@@ -1,6 +1,6 @@
 import { render, fireEvent, cleanup } from '@testing-library/react'
 import { act } from 'react-dom/test-utils'
-import { Router } from 'react-router-dom'
+import { BrowserRouter as Router } from 'react-router-dom'
 import { createMemoryHistory } from 'history'
 import NavBar from 'components/NavBar/NavBar'
 import { Provider } from 'react-redux'
@@ -12,15 +12,18 @@ import { appTheme } from 'theme/theme'
 jest.mock('react-router-dom')
 
 test('render the nav bar component', () => {
-  const { getByText, getAllByText, getAllByPlaceholderText } = render(
-    <Provider store={store}>
-      <PersistGate persistor={persistor}>
-        <ThemeProvider theme={{ ...store.theme, ...appTheme }}>
-          <Router history={history}>
-            <NavBar />
-          </Router>
-        </ThemeProvider>
-      </PersistGate>
-    </Provider>
+  const history = createMemoryHistory()
+  const route = '/'
+  history.push(route)
+
+  const { getByText, getByTestId } = render(
+    <ThemeProvider theme={{ ...store.theme, ...appTheme }}>
+      <Router history={history}>
+        <NavBar />
+      </Router>
+    </ThemeProvider>
   )
+
+  const headerText = getByTestId('header')
+  expect(headerText).toHaveTextContent('Home')
 })
