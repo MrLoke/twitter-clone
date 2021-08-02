@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { useSelector } from 'react-redux'
 import LoadingSpinner from 'components/LoadingSpinner/LoadingSpinner'
 import NavBar from 'components/NavBar/NavBar'
@@ -13,7 +13,7 @@ const FeedPage = () => {
   const user = useSelector((state) => state.auth.userInfo)
   const feed = useSelector((state) => state.app.feed)
 
-  useEffect(() => {
+  const fetchUsersFeed = useCallback(() => {
     const unsubscribe = db
       .collection('following')
       .doc(user.userId)
@@ -24,7 +24,6 @@ const FeedPage = () => {
         const currUserFeed = feed.filter(
           (post) => post.user.userId === user.userId
         )
-
         setFollowingUsersFeed(
           [
             ...currUserFeed,
@@ -37,6 +36,10 @@ const FeedPage = () => {
 
     return () => unsubscribe()
   }, [feed, user.userId])
+
+  useEffect(() => {
+    fetchUsersFeed()
+  }, [fetchUsersFeed])
 
   return (
     <MainFeed>

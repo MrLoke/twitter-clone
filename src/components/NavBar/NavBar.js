@@ -16,7 +16,7 @@ const NavBar = ({ text, backIcon }) => {
           <BiLeftArrowAlt size='3rem' color='rgba(29, 161, 242)' />
         </BackBtn>
       ) : null}
-      <Header>{text}</Header>
+      <Header data-testid='header'>{text}</Header>
 
       <ReactTooltip
         place='bottom'

@@ -22,7 +22,7 @@ const FollowsRecommends = () => {
         <Header>Who to follow</Header>
         {users.length > 0 ? (
           users
-            .slice(0, 4)
+            .slice(0, 6)
             // prevent to display recommend current login user
             .filter((user) => currentUser.userName !== user.userName)
             .map((user) => <RecommendedUser key={user.id} user={user} />)
