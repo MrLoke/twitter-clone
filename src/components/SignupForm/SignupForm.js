@@ -17,7 +17,7 @@ import {
 } from './SignupFormStyled'
 
 const defaultAvatar =
-  'https://thumbs.dreamstime.com/b/domy%C5%9Blny-wektor-ikony-profilu-awatara-zdj%C4%99cie-u%C5%BCytkownika-w-mediach-spo%C5%82eczno%C5%9Bciowych-ikona-fotografii-medi%C3%B3w-183042379.jpg'
+  'https://niezawodne-ekspresy.pl/images/user/default-avatar.png'
 
 const SignupForm = () => {
   const [loading, setLoading] = useState(false)
