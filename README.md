@@ -1,4 +1,4 @@
-# Twitter clone
+## Educational project created by me, its not tutorial copy.
 
 ## [LIVE DEMO](https://twitter-clone-55efc.web.app/)
 
